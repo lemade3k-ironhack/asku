@@ -24,13 +24,13 @@ const projectName = "vider";
 app.locals.title = projectName;
 
 // 👇 Start handling routes here
-const index = require("./routes/signin");
+const index = require("./routes/users.routes");
 app.use("/", index);
 
 const singup = require("./routes/signup.js");
 app.use("/", singup);
 
-const singin = require("./routes/signin.js");
+const singin = require("./routes/users.routes.js");
 app.use("/", singin);
 
 const profiles = require("./routes/profiles.routes");
