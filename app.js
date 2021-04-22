@@ -19,15 +19,28 @@ const app = express();
 require("./config")(app);
 
 // default value for title local
-const projectName = "asku";
-const capitalized = (string) =>
-  string[0].toUpperCase() + string.slice(1).toLowerCase();
+const projectName = "vider";
 
-app.locals.title = `${capitalized(projectName)} created with Ironlauncher`;
+app.locals.title = projectName;
 
 // 👇 Start handling routes here
-const index = require("./routes/index");
+const index = require("./routes/signin");
 app.use("/", index);
+
+const singup = require("./routes/signup.js");
+app.use("/", singup);
+
+const singin = require("./routes/signin.js");
+app.use("/", singin);
+
+const profiles = require("./routes/profiles.routes");
+app.use("/", profiles);
+
+const groups = require("./routes/groups.routes");
+app.use("/", groups);
+
+const movies = require("./routes/movies.routes");
+app.use("/", movies);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
