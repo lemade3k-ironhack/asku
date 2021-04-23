@@ -6,42 +6,21 @@ const movieSchema = new Schema(
       type: String,
       require: true
     },
-    plot: {
-      type: String,
-    },
-    genre: {
-      type: String,
-    },
-    year: {
-      type: String,
-    },
-    director: {
-      type: String,
-    },
-    cast: {
-      type: String,
-    },
-    trailer: {
-      type: String,
-    },
-    rating: {
-      type: String,
-    },
-    picture: {
-      type: String,
-    },
-    group: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Group"
-      }
-    ]
+    plot: String,
+    genre: String,
+    year: Date,
+    director: String,
+    cast: [String],
+    trailer: String,
+    rating: Schema.Types.Decimal128,
+    picture: String,
+    _group: Schema.Types.ObjectId,
   },
   {
     timestamps: true
   }
 );
 
-const Movie = model("Movie", userSchema);
+const Movie = model("Movie", movieSchema);
 
 module.exports = Movie;
