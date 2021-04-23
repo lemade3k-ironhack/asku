@@ -7,6 +7,7 @@ const groupSchema = new Schema(
       require: true,
       unique: true
     },
+    image: String,
     description: {
       type: String,
     },

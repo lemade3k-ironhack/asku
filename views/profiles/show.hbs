@@ -1,0 +1,21 @@
+<main id='profile'>
+  <section>
+    <img src="{{user.avatar}}" alt="user-avatar">
+    <p>{{user.name}}</p>
+
+    <div>
+      <p>{{user.quote}}</p>
+    </div>
+
+    <a href="/profile/{{user._id}}/edit">Edit Profile</a>
+  </section>
+
+  {{#if user.groups}}
+  <section>
+    <h2>My Groups</h2>
+    {{#each user.groups}}
+    <img src="{{this.image}}" alt="group-image">
+    {{/each}}
+  </section>
+  {{/if}}
+</main>
