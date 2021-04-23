@@ -9,8 +9,6 @@ On this website you can share and check anytime for recommendations on books and
 
 ## User stories:
 
-
-
 #### Must Have
 - a user can create an account 
 - a user can sign in
@@ -121,14 +119,16 @@ Movie = {
 	
 ## Model relationships:
 
-
-## Views planning:
+- many-to-many relationship between User and Group
+- one-to-many relationship between Movie and Group
 
 
 ## Route planning:
+
 -  get ‘/’ => landing page with new signin form
 
-    // sessions
+// sessions
+
 -  get ‘/signup’ => new signup form 
 -  post ‘/signup’ => create account
 -  get ‘/signin’ => new signin form
@@ -136,26 +136,30 @@ Movie = {
 -  post ‘/logout’ => delete session
 
 
-    // User profile
-- // private: only user has access
+// User profile
+// private: only user has access
+
 - get ‘/profile/:userId’ => show profile and groups 
 - get ‘/profile/:userId/edit’ => edit user information - form 
 - patch ‘/profile/:userId/update’ => update user - information
 
-    // Manage groups
+// Manage groups
+
 - get ‘/profile/:userId/groups/new’ => new group form
 - post ‘/profile/:userId/groups/create’ => create group
 - get ‘/profile/:userId/groups/:groupId/edit’ => edit - group form
 - post ‘/profile/:userId/groups/:groupId/update’ => - update group
 
-    // Manage memberships
-- // private: only group has access 
+// Manage memberships
+// private: only group has access 
+
 - get ‘/group/:groupId’ => show group information and - sections
 - post ‘groups/:groupId/members/:userId/add’ => add User - to group
 
  
-    // Manage groups content
-    // private: only group has access 
+// Manage groups content
+// private: only group has access 
+
 - get ‘/group/:groupId/movies’ => index all movies of a - group
 - get ‘/group/:groupId/movies/:movieId’ => show movie - details
 - get ‘/group/:groupId/movies/new’ => new movie form
