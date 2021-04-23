@@ -65,17 +65,13 @@ User = {
     },
     password: {
         type: String,
-        required: true,
-        min-length: 8
+        required: true
     },
     image: String,
     quote: String,
     groups: [
         group: ObjectId
     ],
-    movies: [
-       movie: Object
-    ]
     timestamps
 } 
 ``` 
@@ -94,7 +90,6 @@ Group = {
     movies: [
         movie: ObjectId
     ],
-    admin: ObjectId,
     timestamps
 }
 ``` 
@@ -113,15 +108,27 @@ Movie = {
     trailer: String,
     rating: Decimal,
     picture: String,
-    creator: ObjectId,
+    group: ObjectId,
+    timestamps
 }
 ``` 
 	
 ## Model relationships:
 
-- many-to-many relationship between User and Group
-- one-to-many relationship between Movie and Group
-
+```
+--------                ---------
+| User | -(n)------(n)- | Group |
+--------                --------- 
+                            |
+                           (1)
+                            |
+                            |
+                           (n)
+                            |
+                        ---------
+                        | Movie |
+                        ---------
+```
 
 ## Route planning:
 
