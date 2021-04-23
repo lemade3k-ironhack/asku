@@ -1,13 +1,33 @@
 const { Schema, model } = require("mongoose");
 
-// TODO: Please make sure you edit the user model to whatever makes sense in this case
-const userSchema = new Schema({
-  username: {
-    type: String,
-    // unique: true -> Ideally, should be unique, but its up to you
+const userSchema = new Schema(
+  {
+    username: {
+      type: String,
+      require: true,
+      unique: true
+    },
+    password: {
+      type: String,
+      require: true
+    },
+    avatar: {
+      type: String,
+    },
+    quote: {
+      type: String,
+    },
+    groups: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Group"
+      }
+    ]
   },
-  password: String,
-});
+  {
+    timestamps: true
+  }
+);
 
 const User = model("User", userSchema);
 
