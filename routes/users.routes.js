@@ -49,7 +49,7 @@ const validPwd = (req, res, next) => {
 };
 
 /* POST /signup */
-router.post("/signup", validateEmpty, validPwd, (req, res) => {
+router.post("/signup", validateEmpty, validPwd, (req, res, next) => {
   const { username, password, passwordConfirmation } = req.body;
   const salt = bcrypt.genSaltSync(12);
   const hash = bcrypt.hashSync(password, salt);
@@ -64,7 +64,11 @@ router.post("/signup", validateEmpty, validPwd, (req, res) => {
     }
 
     User.create({ username, password: hash })
-      .then((user) => res.redirect(`/profiles/${user._id}`))
+      .then((user) => {
+        req.app.locals.isCurrentUser = true;
+        req.session.currentUser = user;
+        res.redirect("/profile");
+      })
       .catch((err) => next(err));
   });
 });
