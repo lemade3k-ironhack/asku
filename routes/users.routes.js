@@ -49,13 +49,16 @@ const validPwd = (req, res, next) => {
 
 /* POST /signup */
 router.post("/signup", validateEmpty, validPwd, (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, passwordConfirmation } = req.body;
   const salt = bcrypt.genSaltSync(12);
   const hash = bcrypt.hashSync(password, salt);
 
   User.findOne({ username }).then((user) => {
     if (user) {
-      res.render("users/signup.hbs", { msg: "Username already taken" });
+      res.render("users/signup.hbs", {
+        username, password, passwordConfirmation,
+        msg: "Username already taken",
+      });
       return;
     }
 

@@ -24,13 +24,13 @@
 
     <form action="/signup" method="POST">
       <label for="username" >Username</label>
-      <input name="username" type="text" placeholder="Enter a username">
+      <input name="username" type="text" placeholder="Enter a username" value="{{username}}">
 
       <label for="password">Password</label>
-      <input name="password" type="password" placeholder="Enter your Password">
+      <input name="password" type="password" placeholder="Enter your Password" value="{{password}}">
 
       <label for="passwordConfirmation">Password Confirmation</label>
-      <input name="passwordConfirmation" type="password" placeholder="Confirm your Password">
+      <input name="passwordConfirmation" type="password" placeholder="Confirm your Password" value="{{passwordConfirmation}}">
 
       <button type="submit">create account</button>
     </form>
