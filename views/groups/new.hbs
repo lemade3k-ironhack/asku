@@ -1,0 +1,24 @@
+<form action="/groups/{{group._id}}/new" method="POST">
+
+<h2>Create a new group:</h2>
+
+  <section>
+    <img src="{{group.image}}" alt="group-image">
+
+    <h1>
+      <input type="text" placeholder="Group Name" name="groupName" value="{{group.groupName}}">
+    </h1>
+
+    <div>
+      <p>
+        <input type="text" placeholder="add a description for your group!" name="description"
+          value="{{group.description}}">
+      </p>
+    </div>
+
+    <button type="submit">Create</button>
+  
+  </section>
+
+  </main>
+</form>
