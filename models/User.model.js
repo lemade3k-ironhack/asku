@@ -5,30 +5,28 @@ const userSchema = new Schema(
     username: {
       type: String,
       require: true,
-      unique: true
+      unique: true,
     },
     password: {
       type: String,
-      require: true
+      require: true,
     },
     avatar: {
       type: String,
+      default: "/images/avatarDummy.png",
     },
-    quote: {
-      type: String,
-    },
+    quote: String,
     groups: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Group"
-      }
-    ]
+        ref: "Group",
+      },
+    ],
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
 const User = model("User", userSchema);
-
 module.exports = User;
