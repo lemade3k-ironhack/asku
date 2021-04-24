@@ -5,30 +5,30 @@ const groupSchema = new Schema(
     groupName: {
       type: String,
       require: true,
-      unique: true
+      unique: true,
     },
-    image: String,
-    description: {
+    image: {
       type: String,
+      default: "/images/logoDummy.png",
     },
+    description: String,
     members: [
       {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
       },
     ],
     movies: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Movie"
-      }
-    ]
+        ref: "Movie",
+      },
+    ],
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
 const Group = model("Group", groupSchema);
-
 module.exports = Group;

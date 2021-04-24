@@ -4,7 +4,7 @@ const movieSchema = new Schema(
   {
     title: {
       type: String,
-      require: true
+      require: true,
     },
     plot: String,
     genre: String,
@@ -13,11 +13,14 @@ const movieSchema = new Schema(
     cast: [String],
     trailer: String,
     rating: Schema.Types.Decimal128,
-    picture: String,
+    image: {
+      type: String,
+      default: "/images/movieDummy.png",
+    },
     _group: Schema.Types.ObjectId,
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
