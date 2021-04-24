@@ -19,7 +19,7 @@ const groupSchema = new Schema(
     ],
     movies: [
       {
-        type: Schema.Types.ObjectId.apply,
+        type: Schema.Types.ObjectId,
         ref: "Movie"
       }
     ]
