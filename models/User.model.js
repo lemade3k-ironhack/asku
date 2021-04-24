@@ -5,11 +5,17 @@ const userSchema = new Schema(
     username: {
       type: String,
       require: true,
-      unique: true
+      unique: true,
     },
     password: {
       type: String,
-      require: true
+      require: true,
+      minLength: 8,
+    },
+    passwordConfirmation: {
+      type: String,
+      require: true,
+      minLength: 8,
     },
     avatar: {
       type: String,
@@ -20,12 +26,12 @@ const userSchema = new Schema(
     groups: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Group"
-      }
-    ]
+        ref: "Group",
+      },
+    ],
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 

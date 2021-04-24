@@ -17,27 +17,34 @@ router.get("/signup", (req, res) => {
    or maybe start using express-validation package
 */
 const validateEmpty = (req, res, next) => {
-  const { username, password } = req.body;
+  const { username, password, passwordConfirmation } = req.body;
 
-  if (!username || !password) {
+  if (!username || !password || !passwordConfirmation) {
     res.render("users/signup.hbs", { msg: "Please fill all the fields!" });
   }
   next();
 };
 
 const validPwd = (req, res, next) => {
-  const { username, password } = req.body;
+  const { username, password, passwordConfirmation } = req.body;
   const pwReg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+  const renderFormWithError = (err) => {
+    res.render("users/signup.hbs", {
+      username, password, passwordConfirmation, msg: err,
+    });
+  };
 
   if (!pwReg.test(String(password))) {
-    res.render("users/signup.hbs", {
-      username,
-      password,
-      msg:
-        "Password must have at least 8 characters, contain a number, upper and lower letters",
-    });
+    renderFormWithError(
+      "Password must have at least 8 characters, contain a number, upper and lower letters"
+    );
+  } else if (!(password === passwordConfirmation)) {
+    renderFormWithError(
+      "Password and Password Confirmation do not match. Please try again"
+    );
+  } else {
+    next();
   }
-  next();
 };
 
 /* POST /signup */

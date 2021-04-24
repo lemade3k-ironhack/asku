@@ -1,24 +1,30 @@
 require("../db");
-const faker = require('faker')
+const faker = require("faker");
+const bcrypt = require("bcryptjs");
+const salt = bcrypt.genSaltSync(12);
+const hash = bcrypt.hashSync("secret123", salt);
 
 const usersSeeds = [
-  { 
-    username: 'Tina Tester',
-    password: 'secret123',
+  {
+    username: "Ada Lovelace",
+    password: hash,
+    passwordConfirmation: hash,
     avatar: faker.image.avatar(),
-    quote: faker.lorem.sentence()
+    quote: faker.lorem.sentence(),
   },
-  { 
-    username: 'Ada Lovelace',
-    password: 'secret123',
-    avatar: faker.image.avatar(),
-    quote: faker.lorem.sentence()
-  },
-  { 
+  {
     username: faker.name.findName(),
-    password: 'secret123',
+    password: hash,
+    passwordConfirmation: hash,
     avatar: faker.image.avatar(),
-    quote: faker.lorem.sentence()
+    quote: faker.lorem.sentence(),
+  },
+  {
+    username: faker.name.findName(),
+    password: hash,
+    passwordConfirmation: hash,
+    avatar: faker.image.avatar(),
+    quote: faker.lorem.sentence(),
   },
 ];
 
