@@ -1,35 +1,22 @@
-<main id='Edit your profile'>
+<main id='editProfile'>
   <section>
-    <form action="/profiles/{{ user._id }}/edit" method="POST">
-     
+    <h1>Edit your profile</h1>
+
+    {{#if msg}}
+    <div>{{msg}}</div>
+    {{/if}}
+
+    <form action="/profile/update" method="POST">
       <img src="{{user.avatar}}" alt="user-avatar">
-      <br/>
+      <br />
       <input type="text" placeholder="place a new URL for your avatar" name="avatar" value="{{ user.avatar }}">
 
-      <p>
-        <input type="text" placeholder="Edit username" required name="username" value="{{ user.username }}" />
-      </p>
+      <label for="username">Username:</label>
+      <input type="text" placeholder="Edit username" required name="username" value="{{ user.username }}" />
 
-      <div>
-        <p>
-          <input type="text" placeholder="Edit quote" name="quote" value="{{ user.quote }}" />
-        </p>
-      </div>
+      <label for="quote">Some words about you:</label>
+      <input type="text" placeholder="Edit quote" name="quote" value="{{ user.quote }}" />
 
       <button type="submit">Update Profile</button>
-
     </form>
-    {{ msg }}
-
   </section>
-
-
-  {{#if user.groups}}
-  <section>
-    <h2>My Groups</h2>
-    {{#each user.groups}}
-    <img src="{{this.image}}" alt="group-image">
-    {{/each}}
-  </section>
-  {{/if}}
-</main>
