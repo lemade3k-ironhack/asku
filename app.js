@@ -27,8 +27,8 @@ app.locals.title = projectName;
 const index = require("./routes/users.routes");
 app.use("/", index);
 
-//const profiles = require("./routes/profiles.routes");
-//app.use("/", profiles);
+const profiles = require("./routes/profiles.routes");
+app.use("/", profiles);
 
 //const groups = require("./routes/groups.routes");
 //app.use("/", groups);

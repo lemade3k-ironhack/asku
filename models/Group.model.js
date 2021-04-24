@@ -7,6 +7,7 @@ const groupSchema = new Schema(
       require: true,
       unique: true
     },
+    image: String,
     description: {
       type: String,
     },
@@ -28,6 +29,6 @@ const groupSchema = new Schema(
   }
 );
 
-const Group = model("Group", userSchema);
+const Group = model("Group", groupSchema);
 
 module.exports = Group;
