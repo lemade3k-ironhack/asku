@@ -53,7 +53,7 @@ router.post("/signup", validateEmpty, validPwd, (req, res) => {
     }
 
     User.create({ username, password: hash })
-      .then((user) => res.redirect(`/users/${user._id}/profile`))
+      .then((user) => res.redirect(`/profiles/${user._id}`))
       .catch((err) => next(err));
   });
 });
