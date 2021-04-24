@@ -59,14 +59,8 @@ router.post("/signup", validateEmpty, validPwd, (req, res) => {
   });
 });
 
-
-/* GET/ signin */
-router.get("/signin", (req, res, next) => {
-  res.render("users/signin.hbs");
-});
-
 /* POST/ singin */
-router.post("/signin", (req, res, next) => {
+router.post("/signin", validateEmpty, (req, res, next) => {
   const { username, password } = req.body
   User.findOne({ username })
     .then((user) => {
@@ -80,10 +74,10 @@ router.post("/signin", (req, res, next) => {
               //req.session.userInfo = user
               //req.app.locals.isUserLoggedIn = true
 
-              res.redirect(`/profile/${user._id}`)
+              res.redirect(`/profiles/${user._id}`)
             }
             else {
-              res.render("users/signin.hbs", { msg: "Please check if username or password are correct." })
+              res.render("users/signin.hbs", { username, password, msg: "Please check if username or password are correct." })
             }
           })
       }
