@@ -49,8 +49,8 @@ app.use("/", index);
 const profiles = require("./routes/profiles.routes");
 app.use("/", profiles);
 
-//const groups = require("./routes/groups.routes");
-//app.use("/", groups);
+const groups = require("./routes/groups.routes");
+app.use("/", groups);
 
 //const movies = require("./routes/movies.routes");
 //app.use("/", movies);
