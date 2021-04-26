@@ -1,24 +1,26 @@
-<form action="/groups/{{group._id}}/new" method="POST">
-
-<h2>Create a new group:</h2>
+<main id='newGroup'>
+  <header>
+    <img src="{{group.image}}" alt="group-image">
+  </header>
 
   <section>
-    <img src="{{group.image}}" alt="group-image">
+    <h1>Create a new group!</h1>
 
-    <h1>
-      <input type="text" placeholder="Group Name" name="groupName" value="{{group.groupName}}">
-    </h1>
+    {{#if msg}}
+    <div>{{msg}}</div>
+    {{/if}}
 
-    <div>
-      <p>
-        <input type="text" placeholder="add a description for your group!" name="description"
+    <form action="/profile/groups/create" method="POST">
+      <label for="image"></label>
+      <input type="url" placeholder="place a new URL for your avatar" name="avatar" value="{{ group.image }}">
+
+      <label for="groupName">Group Name:</label>
+      <input type="text" placeholder="groupName" required name="groupName" value="{{ group.groupName }}" />
+
+      <label for="description">What's your group about?</label>
+      <input type="text" placeholder="Add a description of your group!" name="description"
           value="{{group.description}}">
-      </p>
-    </div>
 
-    <button type="submit">Create</button>
-  
+      <button type="submit">Create</button>
+    </form>
   </section>
-
-  </main>
-</form>
