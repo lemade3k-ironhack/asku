@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Group = require("../models/Group.model");
 const User = require("../models/User.model");
 
-/* GET /create group  */
+/* GET /groups/new group */
 router.get("/groups/new", (req, res, next) => {
   res.render("groups/new.hbs");
 });
@@ -18,7 +18,7 @@ const validateInput = (req, res, next) => {
   }
 };
 
-/* POST /new group */
+/* POST /groups/create */
 router.post("/groups/create", validateInput, (req, res, next) => {
   const { groupName, image, description } = req.body;
   const user = req.session.currentUser;
