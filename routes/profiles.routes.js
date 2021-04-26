@@ -1,4 +1,5 @@
 const router = require("express").Router();
+
 const User = require("../models/User.model");
 require("../models/Group.model");
 
@@ -28,10 +29,10 @@ router.get("/profile/edit", authorize, (req, res, next) => {
 
 /* middleware user input validation function */
 const validateInput = (req, res, next) => {
-  const { username, avatar, quote } = req.body;
+  const { username, quote } = req.body;
 
   if (!username) {
-    res.render("profiles/edit.hbs", { user, msg: "Please add an username!" });
+    res.render("profiles/edit.hbs", { username, quote, msg: "Please add an username!" });
   } else {
     next();
   }

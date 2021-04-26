@@ -15,10 +15,10 @@
       <input type="url" placeholder="place a new URL for your avatar" name="avatar" value="{{ user.avatar }}">
 
       <label for="username">Username:</label>
-      <input type="text" placeholder="Edit username" required name="username" value="{{ user.username }}" />
+      <input name="username" type="text" placeholder="Edit username" value="{{ user.username }}" />
 
       <label for="quote">Some words about you:</label>
-      <input type="text" placeholder="Edit quote" name="quote" value="{{ user.quote }}" />
+      <input name="quote" type="text" placeholder="Edit quote" value="{{ user.quote }}" />
 
       <button type="submit">Update Profile</button>
     </form>
