@@ -20,6 +20,7 @@ const validateEmpty = (req, res, next) => {
 /* POST/ singin */
 router.post("/signin", validateEmpty, (req, res, next) => {
   const { username, password } = req.body;
+
   User.findOne({ username })
     .then((user) => {
       if (!user) {
@@ -30,14 +31,13 @@ router.post("/signin", validateEmpty, (req, res, next) => {
       } else {
         bcrypt.compare(password, user.password).then((isMatching) => {
           if (isMatching) {
-            //req.session.userInfo = user
-            //req.app.locals.isUserLoggedIn = true
+            req.app.locals.isCurrentUser = true;
+            req.session.currentUser = user;
 
             res.redirect(`/profile`);
           } else {
             res.render("users/signin.hbs", {
-              username,
-              password,
+              username, password, 
               msg: "Please check if username or password are correct.",
             });
           }
@@ -98,9 +98,7 @@ router.post("/signup", validateNewEmpty, validPwd, (req, res, next) => {
   User.findOne({ username }).then((user) => {
     if (user) {
       res.render("users/signup.hbs", {
-        username,
-        password,
-        passwordConfirmation,
+        username, password, passwordConfirmation,
         msg: "Username already taken",
       });
       return;
