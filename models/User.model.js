@@ -10,6 +10,12 @@ const userSchema = new Schema(
     password: {
       type: String,
       require: true,
+      minLength: 8,
+    },
+    passwordConfirmation: {
+      type: String,
+      require: true,
+      minLength: 8,
     },
     avatar: {
       type: String,
