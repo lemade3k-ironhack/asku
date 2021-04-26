@@ -1,6 +1,6 @@
 <main id='editProfile'>
   <header>
-    <img src="{{user.avatar}}" alt="logo">
+    <img src="{{user.avatar}}" alt="user-avatar">
   </header>
 
   <section>
@@ -10,9 +10,9 @@
     <div>{{msg}}</div>
     {{/if}}
 
-    <form action="/profile/update" method="POST">
+    <form action="/profile/update" method="POST" enctype="multipart/form-data">
       <label for="avatar"></label>
-      <input type="url" placeholder="place a new URL for your avatar" name="avatar" value="{{ user.avatar }}">
+      <input name="avatar" type="file" accept="image/png,image/jpg,image/jpeg">
 
       <label for="username">Username:</label>
       <input name="username" type="text" placeholder="Edit username" value="{{ user.username }}" />
@@ -23,3 +23,4 @@
       <button type="submit">Update Profile</button>
     </form>
   </section>
+</main>
