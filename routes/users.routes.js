@@ -73,6 +73,7 @@ router.post("/signup", validateEmpty, validPwd, (req, res, next) => {
   });
 });
 
+<<<<<<< HEAD
 /* POST/ singin */
 router.post("/signin", validateEmpty, (req, res, next) => {
   const { username, password } = req.body
@@ -101,5 +102,13 @@ router.post("/signin", validateEmpty, (req, res, next) => {
     })
 })
 
+=======
+/* GET /logout */
+router.get("/logout", (req, res) => {
+  req.app.locals.isCurrentUser = false;
+  req.session.destroy();
+  res.redirect("/");
+});
+>>>>>>> f528003 (Add logout route)
 
 module.exports = router;
