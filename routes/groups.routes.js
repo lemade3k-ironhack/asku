@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const Group = require("../models/Group.model");
+const User = require("../models/User.model");
 
 /* GET /create group  */
 router.get("/groups/new", (req, res, next) => {
   res.render("groups/new.hbs");
 });
-
 
 /* middleware user input validation function */
 const validateInput = (req, res, next) => {
@@ -20,20 +20,27 @@ const validateInput = (req, res, next) => {
 
 /* POST /new group */
 router.post("/groups/create", validateInput, (req, res, next) => {
-  const { groupName, image, description } = req.body
+  const { groupName, image, description } = req.body;
+  const user = req.session.currentUser;
 
-  Group.findOne({ groupName })
-    .then((group) => {
+  Group.findOne({ groupName }).then((group) => {
+    if (group) {
+      res.render("groups/new.hbs", {
+        groupName, image, description,
+        msg: "Group Name already taken",
+      });
+      return;
+    }
 
-      if (group) {
-        res.render("groups/new.hbs", { groupName, image, description, msg: "Group Name already taken" });
-
-        return;
-      }
-      Group.create({ groupName, image, description })
-        .then((group) => res.redirect("/profile"))
-        .catch((err) => next(err));
-    });
+    Group.create({ groupName, image, description, members: [user._id] })
+      .then((group) => {
+        User.findOneAndUpdate(
+          { username: user.username },
+          { $push: { groups: group._id } }
+        ).then(() => res.redirect("/profile"));
+      })
+      .catch((err) => next(err));
+  });
 });
 
 module.exports = router;
