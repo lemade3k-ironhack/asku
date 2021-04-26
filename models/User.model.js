@@ -19,10 +19,9 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
+      default: "/images/avatarDummy.png",
     },
-    quote: {
-      type: String,
-    },
+    quote: String,
     groups: [
       {
         type: Schema.Types.ObjectId,
@@ -36,5 +35,4 @@ const userSchema = new Schema(
 );
 
 const User = model("User", userSchema);
-
 module.exports = User;
