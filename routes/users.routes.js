@@ -7,11 +7,55 @@ router.get("/", (req, res, next) => {
   res.render("users/signin.hbs");
 });
 
+/* Custom Middleware: Validate user input 
+   ToDo: refactor - move validation to another file 
+   or maybe start using express-validation package
+*/
+const validateNewEmpty = (req, res, next) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    res.render("users/signup.hbs", { msg: "Please fill all the fields!" });
+  }
+  next();
+};
+
+/* POST/ singin */
+router.post("/signin", validateNewEmpty, (req, res, next) => {
+  const { username, password } = req.body;
+  User.findOne({ username })
+    .then((user) => {
+      if (!user) {
+        res.render("users/signin.hbs", {
+          msg:
+            "Oh no, something went wrong! Please check again if your username or password are correct!",
+        });
+      } else {
+        bcrypt.compare(password, user.password).then((isMatching) => {
+          if (isMatching) {
+            //req.session.userInfo = user
+            //req.app.locals.isUserLoggedIn = true
+
+            res.redirect(`/profile`);
+          } else {
+            res.render("users/signin.hbs", {
+              username,
+              password,
+              msg: "Please check if username or password are correct.",
+            });
+          }
+        });
+      }
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 /* GET /signup */
 router.get("/signup", (req, res) => {
   res.render("users/signup.hbs");
 });
-
 
 /* Custom Middleware: Validate user input 
    ToDo: refactor - move validation to another file 
@@ -31,7 +75,10 @@ const validPwd = (req, res, next) => {
   const pwReg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
   const renderFormWithError = (err) => {
     res.render("users/signup.hbs", {
-      username, password, passwordConfirmation, msg: err,
+      username,
+      password,
+      passwordConfirmation,
+      msg: err,
     });
   };
 
@@ -57,7 +104,9 @@ router.post("/signup", validateEmpty, validPwd, (req, res, next) => {
   User.findOne({ username }).then((user) => {
     if (user) {
       res.render("users/signup.hbs", {
-        username, password, passwordConfirmation,
+        username,
+        password,
+        passwordConfirmation,
         msg: "Username already taken",
       });
       return;
@@ -73,42 +122,11 @@ router.post("/signup", validateEmpty, validPwd, (req, res, next) => {
   });
 });
 
-<<<<<<< HEAD
-/* POST/ singin */
-router.post("/signin", validateEmpty, (req, res, next) => {
-  const { username, password } = req.body
-  User.findOne({ username })
-    .then((user) => {
-      if (!user) {
-        res.render("users/signin.hbs", { msg: 'Oh no, something went wrong! Please check again if your username or password are correct!' })
-      }
-      else {
-        bcrypt.compare(password, user.password)
-          .then((isMatching) => {
-            if (isMatching) {
-              //req.session.userInfo = user
-              //req.app.locals.isUserLoggedIn = true
-
-              res.redirect(`/profiles/${user._id}`)
-            }
-            else {
-              res.render("users/signin.hbs", { username, password, msg: "Please check if username or password are correct." })
-            }
-          })
-      }
-    })
-    .catch((err) => {
-      next(err)
-    })
-})
-
-=======
 /* GET /logout */
 router.get("/logout", (req, res) => {
   req.app.locals.isCurrentUser = false;
   req.session.destroy();
   res.redirect("/");
 });
->>>>>>> f528003 (Add logout route)
 
 module.exports = router;
