@@ -36,4 +36,13 @@ router.post("/groups/create", validateInput, (req, res, next) => {
     });
 });
 
+
+/* GET /group details page  */
+router.get("/groups/:groupId", (req, res, next) => {
+  res.render("groups/show.hbs");
+});
+
+
+
+
 module.exports = router;
