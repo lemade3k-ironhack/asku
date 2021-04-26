@@ -1,0 +1,13 @@
+<main id='groups'>
+  <section>
+    <h1> {{username}}'s groups!</h1>
+
+    {{#if msg}}
+    <div>{{msg}}</div>
+    {{/if}}
+
+      <img src="{{group.image}}" alt="group-image">
+      <p>{{group.groupName}} </p>
+      <p>{{group.description}} </p>
+    
+  </section>
