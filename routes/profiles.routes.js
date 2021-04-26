@@ -4,7 +4,7 @@ require("../models/Group.model");
 
 // middleware for authorization
 const authorize = (req, res, next) => {
-  req.session.currentUser ? next() : res.redirect("/", {msg: "You are not logged in"});
+  req.session.currentUser ? next() : res.redirect("/", { msg: "You are not logged in" });
 };
 
 /* GET /profile */
@@ -19,7 +19,7 @@ router.get("/profile", authorize, (req, res, next) => {
 
 /* GET/ edit route  */
 router.get("/profile/edit", authorize, (req, res, next) => {
-  const user = req.session.currentUser
+  const user = req.session.currentUser;
 
   User.findOne({ username: user.username })
     .then((user) => res.render("profiles/edit.hbs", { user }))
@@ -29,13 +29,9 @@ router.get("/profile/edit", authorize, (req, res, next) => {
 /* middleware user input validation function */
 const validateInput = (req, res, next) => {
   const { username, avatar, quote } = req.body;
-  const { userId } = req.params;
 
   if (!username) {
-    res.render("profiles/edit.hbs", {
-      user: { _id: userId, username: username, avatar: avatar, quote: quote },
-      msg: "Please add an username!",
-    });
+    res.render("profiles/edit.hbs", { user, msg: "Please add an username!" });
   } else {
     next();
   }
@@ -43,10 +39,9 @@ const validateInput = (req, res, next) => {
 
 /* POST/ update  */
 router.post("/profile/update", validateInput, (req, res, next) => {
-  const { userId } = req.params;
-  const { username, avatar, quote } = req.body;
+  const user = req.body;
 
-  User.findByIdAndUpdate(userId, { username, avatar, quote })
+  User.findOneAndUpdate({ username: user.username }, user)
     .then(() => res.redirect("/profile"))
     .catch((err) => next(err));
 });

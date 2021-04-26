@@ -1,4 +1,8 @@
 <main id='editProfile'>
+  <header>
+    <img src="{{user.avatar}}" alt="logo">
+  </header>
+
   <section>
     <h1>Edit your profile</h1>
 
@@ -7,9 +11,8 @@
     {{/if}}
 
     <form action="/profile/update" method="POST">
-      <img src="{{user.avatar}}" alt="user-avatar">
-      <br />
-      <input type="text" placeholder="place a new URL for your avatar" name="avatar" value="{{ user.avatar }}">
+      <label for="avatar"></label>
+      <input type="url" placeholder="place a new URL for your avatar" name="avatar" value="{{ user.avatar }}">
 
       <label for="username">Username:</label>
       <input type="text" placeholder="Edit username" required name="username" value="{{ user.username }}" />

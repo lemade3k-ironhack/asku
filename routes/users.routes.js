@@ -7,11 +7,8 @@ router.get("/", (req, res, next) => {
   res.render("users/signin.hbs");
 });
 
-/* Custom Middleware: Validate user input 
-   ToDo: refactor - move validation to another file 
-   or maybe start using express-validation package
-*/
-const validateNewEmpty = (req, res, next) => {
+/* Custom Middleware: Validate user input */
+const validateEmpty = (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -21,7 +18,7 @@ const validateNewEmpty = (req, res, next) => {
 };
 
 /* POST/ singin */
-router.post("/signin", validateNewEmpty, (req, res, next) => {
+router.post("/signin", validateEmpty, (req, res, next) => {
   const { username, password } = req.body;
   User.findOne({ username })
     .then((user) => {
@@ -57,11 +54,8 @@ router.get("/signup", (req, res) => {
   res.render("users/signup.hbs");
 });
 
-/* Custom Middleware: Validate user input 
-   ToDo: refactor - move validation to another file 
-   or maybe start using express-validation package
-*/
-const validateEmpty = (req, res, next) => {
+/* Custom Middleware: Validate user input */
+const validateNewEmpty = (req, res, next) => {
   const { username, password, passwordConfirmation } = req.body;
 
   if (!username || !password || !passwordConfirmation) {
@@ -96,7 +90,7 @@ const validPwd = (req, res, next) => {
 };
 
 /* POST /signup */
-router.post("/signup", validateEmpty, validPwd, (req, res, next) => {
+router.post("/signup", validateNewEmpty, validPwd, (req, res, next) => {
   const { username, password, passwordConfirmation } = req.body;
   const salt = bcrypt.genSaltSync(12);
   const hash = bcrypt.hashSync(password, salt);
