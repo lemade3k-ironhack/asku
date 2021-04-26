@@ -12,6 +12,7 @@ router.get("/signup", (req, res) => {
   res.render("users/signup.hbs");
 });
 
+
 /* Custom Middleware: Validate user input 
    ToDo: refactor - move validation to another file 
    or maybe start using express-validation package
@@ -57,5 +58,34 @@ router.post("/signup", validateEmpty, validPwd, (req, res) => {
       .catch((err) => next(err));
   });
 });
+
+/* POST/ singin */
+router.post("/signin", validateEmpty, (req, res, next) => {
+  const { username, password } = req.body
+  User.findOne({ username })
+    .then((user) => {
+      if (!user) {
+        res.render("users/signin.hbs", { msg: 'Oh no, something went wrong! Please check again if your username or password are correct!' })
+      }
+      else {
+        bcrypt.compare(password, user.password)
+          .then((isMatching) => {
+            if (isMatching) {
+              //req.session.userInfo = user
+              //req.app.locals.isUserLoggedIn = true
+
+              res.redirect(`/profiles/${user._id}`)
+            }
+            else {
+              res.render("users/signin.hbs", { username, password, msg: "Please check if username or password are correct." })
+            }
+          })
+      }
+    })
+    .catch((err) => {
+      next(err)
+    })
+})
+
 
 module.exports = router;
