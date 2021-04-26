@@ -1,0 +1,34 @@
+<main id='newMovie'>
+  <section>
+    <h1>Create a new movie</h1>
+
+    {{#if msg}}
+    <div>{{msg}}</div>
+    {{/if}}
+
+    <form action="/groups/{{groupId}}/movies/create" method="POST">
+      <label for="title">Title:</label>
+      <input name="title" type="text" placeholder="Add movies title" value="{{ movie.title }}" />
+
+      <label for="plot">Plot:</label>
+      <input name="plot" type="text" placeholder="Add some info about the plot" value="{{ movie.plot}}" />
+
+      <label for="genre">Title:</label>
+      <input name="genre" type="text" placeholder="Add a genre" value="{{ movie.genre }}" />
+
+      <label for="director">Director:</label>
+      <input name="director" type="text" placeholder="Add a director" value="{{ movie.director }}" />
+
+      <label for="">Title:</label>
+      <input name="groupName" type="text" placeholder="title" value="{{ movie.title }}" />
+
+      <label for="image">Preview Image:</label>
+      <input name="image" type="url" placeholder="Add an URL for a preview image" value="{{ movie.image }}">
+
+      <label for="trailer">Trailer:</label>
+      <input name="trailer" type="url" placeholder="Add an URL for a trailer" value="{{ movie.trailer }}">
+
+      <button type="submit">Create</button>
+    </form>
+  </section>
+</main>
