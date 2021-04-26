@@ -146,16 +146,16 @@ Movie = {
 // User profile
 // private: only user has access
 
-- get ‘/profile/:userId’ => show profile and groups 
-- get ‘/profile/:userId/edit’ => edit user information - form 
-- patch ‘/profile/:userId/update’ => update user - information
+- get ‘/profiles/:userId’ => show profile and groups 
+- get ‘/profiles/:userId/edit’ => edit user information - form 
+- patch ‘/profiles/:userId/edit’ => update user - information
 
 // Manage groups
 
-- get ‘/profile/:userId/groups/new’ => new group form
-- post ‘/profile/:userId/groups/create’ => create group
-- get ‘/profile/:userId/groups/:groupId/edit’ => edit - group form
-- post ‘/profile/:userId/groups/:groupId/update’ => - update group
+- get ‘/profiles/:userId/groups/new’ => new group form
+- post ‘/profiles/:userId/groups/create’ => create group
+- get ‘/profiles/:userId/groups/:groupId/edit’ => edit - group form
+- post ‘/profiles/:userId/groups/:groupId/update’ => - update group
 
 // Manage memberships
 // private: only group has access 
