@@ -2,17 +2,34 @@ const router = require("express").Router();
 const Group = require("../models/Group.model");
 const User = require("../models/User.model");
 
+// middleware for authorization
+const authorize = (req, res, next) => {
+  req.session.currentUser ? next() : res.redirect("/", { msg: "You are not logged in" });
+};
+
+/* GET /groups/:groupId  */
+router.get("/groups/:groupId", authorize, (req, res) => {
+  const groupId = req.params.groupId;
+
+  Group.findById(groupId)
+    .then((group) => res.render("groups/show.hbs", { group }))
+    .catch((err) => next(err));
+});
+
 /* GET /groups/new  */
-router.get("/groups/new", (req, res) => {
+router.get("/groups/new", authorize, (req, res) => {
   res.render("groups/new.hbs");
 });
 
-/* middleware user input validation function */
+/* middleware to validate user input */
 const validateInput = (req, res, next) => {
   const { groupName, image, description } = req.body;
 
   if (!groupName) {
-    res.render("groups/new.hbs", { groupName, image, description, msg: "Please add a name for your group!" });
+    res.render("groups/new.hbs", { 
+      groupName, image, description, 
+      msg: "Please add a name for your group!" 
+    });
   } else {
     next();
   }
@@ -43,9 +60,37 @@ router.post("/groups/create", validateInput, (req, res, next) => {
   });
 });
 
-/* GET /groups/:groupId  */
-router.get("/groups/:groupId", (req, res) => {
-  res.render("groups/show.hbs");
+/* GET /groups/:groupId/edit  */
+router.get("/groups/:groupId/edit", authorize, (req, res, next) => {
+  const groupId = req.params.groupId;
+
+  Group.findById( groupId )
+    .then((group) => res.render("groups/edit.hbs", { group }))
+    .catch((err) => next(err));
+});
+
+/* middleware to validate user input */
+const validateEdit = (req, res, next) => {
+  const { groupName, image, description } = req.body;
+
+  if (!groupName) {
+    res.render("groups/edit.hbs", {
+      groupName, image, description, 
+      msg: "Please add a name for your group!",
+    });
+  } else {
+    next();
+  }
+};
+
+/* POST /groups/:groupId/update  */
+router.post("/groups/:groupId/update", authorize, validateEdit, (req, res, next) => {
+  const { groupName, image, description } = req.body;
+  const groupId = req.params.groupId
+
+  Group.findByIdAndUpdate(groupId, { groupName, image, description })
+    .then(() => { res.redirect("/groups/" + groupId)})
+    .catch((err) => next(err));
 });
 
 module.exports = router;
