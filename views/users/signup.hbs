@@ -1,38 +1,30 @@
 <main id='signup'>
   <header>
     <img src="/images/logoDummy.png" alt="logo">
-    <h1>Vider</h1>
+
+    <h3>Share experiences</h3>
+    <p>create an account or <a class="btn btn-warning" href="/">sign in</a></p>
   </header>
 
   <section>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat.
-    </p>
-  </section>
-
-  <section>
-    <h2>Start using vider</h2>
-    <p>create an account or <a href="/">sing in</a></p>
-
-
     {{#if msg}}
     <div>{{msg}}</div>
     {{/if}}
 
     <form action="/signup" method="POST">
-      <label for="username" >Username</label>
-      <input name="username" type="text" placeholder="Enter a username" value="{{username}}">
+      <label for="username">Username</label>
+      <input name="username" class="form-control form-control-lg" type="text" placeholder="Enter a username"
+        value="{{username}}">
 
       <label for="password">Password</label>
-      <input name="password" type="password" placeholder="Enter your Password" value="{{password}}">
+      <input name="password" class="form-control form-control-lg" type="password" placeholder="Enter your Password"
+        value="{{password}}">
 
       <label for="passwordConfirmation">Password Confirmation</label>
-      <input name="passwordConfirmation" type="password" placeholder="Confirm your Password" value="{{passwordConfirmation}}">
-
-      <button type="submit">create account</button>
+      <input name="passwordConfirmation" class="form-control form-control-lg" type="password"
+        placeholder="Confirm your Password" value="{{passwordConfirmation}}">
+      <br>
+      <button class="btn btn-warning form-control" type="submit">create account</button>
     </form>
   </section>
 </main>
