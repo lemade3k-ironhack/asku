@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const Group = require("../models/Group.model");
 
-/* GET /create group  */
-router.get("/groups/new", (req, res, next) => {
+/* GET /groups/new  */
+router.get("/groups/new", (req, res) => {
   res.render("groups/new.hbs");
 });
 
@@ -18,7 +18,7 @@ const validateInput = (req, res, next) => {
   }
 };
 
-/* POST /new group */
+/* POST /groups/create */
 router.post("/groups/create", validateInput, (req, res, next) => {
   const { groupName, image, description } = req.body
 
@@ -36,13 +36,9 @@ router.post("/groups/create", validateInput, (req, res, next) => {
     });
 });
 
-
-/* GET /group details page  */
-router.get("/groups/:groupId", (req, res, next) => {
+/* GET /groups/:groupId  */
+router.get("/groups/:groupId", (req, res) => {
   res.render("groups/show.hbs");
 });
-
-
-
 
 module.exports = router;
