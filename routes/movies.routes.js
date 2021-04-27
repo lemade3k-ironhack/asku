@@ -3,6 +3,17 @@ const Group = require("../models/Group.model");
 const Movie = require("../models/Movie.model");
 const { authorize } = require("../middlewares/authorization")
 
+/* GET groups/:groupId/movies */
+router.get("/groups/:groupId/movies", authorize, (req, res, next) => {
+  const groupId = req.params.groupId;
+
+  Group.findById(groupId)
+    .populate("movies")
+    .then((group) =>
+      res.render("movies/index.hbs", { group, movies: group.movies })
+    )
+    .catch((err) => next(err));
+});
 
 /* GET groups/:groupId/movies/new */
 router.get("/groups/:groupId/movies/new", authorize, (req, res) => {
@@ -83,18 +94,6 @@ router.get("/groups/:groupId/movies/:movieId", authorize, (req, res, next) => {
   Movie.findById(movieId)
     .populate("group")
     .then((movie) => res.render("movies/show.hbs", { movie, groupId }))
-    .catch((err) => next(err));
-});
-
-/* GET groups/:groupId/movies */
-router.get("/groups/:groupId/movies", authorize, (req, res, next) => {
-  const groupId = req.params.groupId;
-
-  Group.findById(groupId)
-    .populate("movies")
-    .then((group) =>
-      res.render("movies/index.hbs", { group, movies: group.movies })
-    )
     .catch((err) => next(err));
 });
 

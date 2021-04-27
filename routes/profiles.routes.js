@@ -9,8 +9,8 @@ const { uploadImg } = require("../middlewares/imageUploads");
 /* GET/ edit route  */
 router.get("/profile/edit", authorize, (req, res, next) => {
   const user = req.session.currentUser;
-  
-  User.findOne({ username: user.username })
+
+  User.findById( user._id )
     .then((user) => res.render("profiles/edit.hbs", { user }))
     .catch((err) => next(err));
 });
@@ -23,19 +23,20 @@ router.post("/profile/update", authorize, uploadImg.single("avatar"), validate,
     const avatar =
       req.file != undefined ? req.file.path.split("public/")[1] : user.avatar;
 
-  User.findOneAndUpdate({ username: user.username }, { username, quote, avatar }, { new: true })
-    .then((user) => {
-      req.session.currentUser = user
-      res.redirect("/profile")
-    })
-    .catch((err) => next(err));
-});
+    User.findByIdAndUpdate(user._id, { username, quote, avatar }, { new: true })
+      .then((user) => {
+        req.session.currentUser = user;
+        res.redirect("/profile");
+      })
+      .catch((err) => next(err));
+  }
+);
 
 /* GET /profile */
 router.get("/profile", authorize, (req, res, next) => {
   const user = req.session.currentUser;
 
-  User.findOne({ username: user.username })
+  User.findById( user._id )
     .populate("groups")
     .then((user) => res.render("profiles/show.hbs", { user }))
     .catch((err) => next(err));

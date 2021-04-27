@@ -51,7 +51,7 @@ router.post("/groups/:groupId/update", authorize, validate, (req, res, next) => 
   const { groupName, image, description } = req.body;
   const groupId = req.params.groupId
 
-  Group.findByIdAndUpdate(groupId, { groupName, image, description })
+  Group.findByIdAndUpdate(groupId, { group: {groupName, image, description} })
     .then(() => { res.redirect("/groups/" + groupId)})
     .catch((err) => next(err));
 });
