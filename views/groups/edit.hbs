@@ -7,7 +7,7 @@
     <div>{{msg}}</div>
     {{/if}}
 
-    <form action="/groups/{{group.groupName}}/update" method="POST">
+    <form action="/groups/{{group._id}}/update" method="POST">
       <label for="image"></label>
       <input type="text" placeholder="place a new URL for your avatar" name="image" value="{{ group.image }}">
 

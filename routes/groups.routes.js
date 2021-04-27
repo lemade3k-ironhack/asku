@@ -6,81 +6,75 @@ const authorize = (req, res, next) => {
   req.session.currentUser ? next() : res.redirect("/", { msg: "You are not logged in" });
 };
 
-/* GET /create group  */
+/* GET /groups/new */
 router.get("/groups/new", (req, res, next) => {
   res.render("groups/new.hbs");
 });
 
-/* middleware user input validation function */
+/* middleware to validate user input */
 const validateInput = (req, res, next) => {
-const { groupName, image, description } = req.body;
+  const { groupName, image, description } = req.body;
 
   if (!groupName) {
-    res.render("groups/new.hbs", { groupName, image, description, msg: "Please add a name for your group!" });
-  } else {
-    next();
-  }
-};
-
-/* POST /new group */
-router.post("/groups/create", validateInput, (req, res, next) => {
-  const { groupName, image, description } = req.body
-
-  Group.findOne({ groupName })
-    .then((group) => {
-
-      if (group) {
-        res.render("groups/new.hbs", { groupName, image, description, msg: "Group Name already taken" });
-
-        return;
-      }
-      Group.create({ groupName, image, description })
-        .then((group) => res.redirect("/profile"))
-        .catch((err) => next(err));
+    res.render("groups/new.hbs", {
+      groupName, image, description,
+      msg: "Please add a name for your group!",
     });
-});
-
-
-
-
-
-
-/* GET/ edit group  */
-router.get("/groups/:groupName/edit", authorize, (req, res, next) => {
-  const groupName = req.params.groupName;
-  
-  Group.findOne({ groupName })
-    .then((group) => { 
-      res.render("groups/edit.hbs", { group })
-    })
-    .catch((err) => next(err));
-});
-
-/* middleware user input validation function */
-const validateEdit = (req, res, next) => {
-  const { groupName, image, description, members, movies } = req.body;
-
-  if (!groupName) {
-    res.render(`groups/${{ groupName }}/edit.hbs`, { groupName, image, description, members: [user._id], msg: "Please add a name for your group!" });
   } else {
     next();
   }
 };
 
-/* POST/ update  */
-router.post("/groups/:groupName/update", validateEdit, (req, res, next) => {
-  const user = req.session.currentUser
-  const { groupName, image, description, members, movies } = req.body
+/* POST /groups/create */
+router.post("/groups/create", validateInput, (req, res, next) => {
+  const { groupName, image, description } = req.body;
 
-  Group.findOneAndUpdate(groupName, { groupName, image, description })
-    .then((group) => {
-      req.session.currentUser = user
-      res.redirect("/groups/" + groupName)
-    })
+  Group.findOne({ groupName }).then((group) => {
+    if (group) {
+      res.render("groups/new.hbs", {
+        groupName, image, description,
+        msg: "Group Name already taken",
+      });
+
+      return;
+    }
+    Group.create({ groupName, image, description })
+      .then(() => res.redirect("/profile"))
+      .catch((err) => next(err));
+  });
+});
+
+/* GET /groups/:groupId/edit  */
+router.get("/groups/:groupId/edit", authorize, (req, res, next) => {
+  const groupId = req.params.groupId;
+
+  Group.findById( groupId )
+    .then((group) => res.render("groups/edit.hbs", { group }))
     .catch((err) => next(err));
 });
 
+/* middleware to validate user input */
+const validateEdit = (req, res, next) => {
+  const { groupName, image, description } = req.body;
 
+  if (!groupName) {
+    res.render("groups/edit.hbs", {
+      groupName, image, description, 
+      msg: "Please add a name for your group!",
+    });
+  } else {
+    next();
+  }
+};
 
+/* POST /groups/:groupId/update  */
+router.post("/groups/:groupId/update", validateEdit, (req, res, next) => {
+  const { groupName, image, description } = req.body;
+  const groupId = req.params.groupId
+
+  Group.findByIdAndUpdate(groupId, { groupName, image, description })
+    .then(() => { res.redirect("/groups/" + groupId)})
+    .catch((err) => next(err));
+});
 
 module.exports = router;
