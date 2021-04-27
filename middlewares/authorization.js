@@ -7,7 +7,7 @@ const authorize = (req, res, next) => {
     
     User.findById( user._id)
     .then((user) => { 
-      req.app.locals.userName = user.username
+      req.app.locals.userAvatar = user.avatar
       req.app.locals.isCurrentUser = true; 
       next()
     })
