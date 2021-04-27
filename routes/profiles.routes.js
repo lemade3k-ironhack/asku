@@ -16,7 +16,12 @@ require("../models/Group.model");
 
 // middleware for authorization
 const authorize = (req, res, next) => {
-  req.session.currentUser ? next() : res.redirect("/");
+  if (req.session.currentUser) {
+    req.app.locals.isCurrentUser = true;
+    next()
+  } else { 
+    res.redirect("/")
+  }
 };
 
 /* GET/ edit route  */
@@ -38,6 +43,7 @@ const validateInput = (req, res, next) => {
     next();
   }
 };
+
 /* Middleware to validate uploads */
 const upload = multer({
   storage: storage,
