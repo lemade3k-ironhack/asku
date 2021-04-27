@@ -6,8 +6,13 @@ const authorize = (req, res, next) => {
   req.session.currentUser ? next() : res.redirect("/", { msg: "You are not logged in" });
 };
 
-/* GET /groups/new */
-router.get("/groups/new", (req, res, next) => {
+/* GET /groups/:groupId  */
+router.get("/groups/:groupId", authorize, (req, res) => {
+  res.render("groups/show.hbs");
+});
+
+/* GET /groups/new  */
+router.get("/groups/new", authorize, (req, res) => {
   res.render("groups/new.hbs");
 });
 
@@ -16,9 +21,9 @@ const validateInput = (req, res, next) => {
   const { groupName, image, description } = req.body;
 
   if (!groupName) {
-    res.render("groups/new.hbs", {
-      groupName, image, description,
-      msg: "Please add a name for your group!",
+    res.render("groups/new.hbs", { 
+      groupName, image, description, 
+      msg: "Please add a name for your group!" 
     });
   } else {
     next();
@@ -26,7 +31,7 @@ const validateInput = (req, res, next) => {
 };
 
 /* POST /groups/create */
-router.post("/groups/create", validateInput, (req, res, next) => {
+router.post("/groups/create", authorize, validateInput, (req, res, next) => {
   const { groupName, image, description } = req.body;
 
   Group.findOne({ groupName }).then((group) => {
@@ -68,7 +73,7 @@ const validateEdit = (req, res, next) => {
 };
 
 /* POST /groups/:groupId/update  */
-router.post("/groups/:groupId/update", validateEdit, (req, res, next) => {
+router.post("/groups/:groupId/update", authorize, validateEdit, (req, res, next) => {
   const { groupName, image, description } = req.body;
   const groupId = req.params.groupId
 
