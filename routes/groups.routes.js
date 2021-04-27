@@ -22,7 +22,7 @@ router.post("/groups/create", authorize, uploader.single("image"), validate, (re
   Group.findOne({ groupName }).then((group) => {
     if (group) {
       res.render("groups/new.hbs", {
-        groupName, image: newImg, description,
+        groupName, description,
         msg: "Group Name already taken",
       });
       return;
