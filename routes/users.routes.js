@@ -19,7 +19,7 @@ const validateEmpty = (req, res, next) => {
   next();
 };
 
-/* POST/ singin */
+/* POST/ signin */
 router.post("/signin", validateEmpty, (req, res, next) => {
   const { username, password } = req.body;
 
