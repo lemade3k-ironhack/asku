@@ -3,6 +3,7 @@ const User = require("../models/User.model");
 
 // require middlewares
 const { authorize } = require("../middlewares/authorization");
+const { validate } = require("../middlewares/validations/profiles");
 const { uploadImg } = require("../middlewares/imageUploads");
 
 /* GET/ edit route  */
@@ -14,21 +15,13 @@ router.get("/profile/edit", authorize, (req, res, next) => {
     .catch((err) => next(err));
 });
 
-/* middleware user input validation function */
-const validateInput = (req, res, next) => {
-  const { username, quote } = req.body;
-
-  if (!username) {
-    res.render("profiles/edit.hbs", { username, quote, msg: "Please add an username!" });
-  } else {
-    next();
-  }
-};
 /* POST/ update  */
-router.post("/profile/update", upload.single("avatar"), validateInput, (req, res, next) => {
-  const user = req.session.currentUser
-  const { username, quote } = req.body
-  const avatar = (req.file != undefined) ? req.file.path.split("public/")[1] : user.avatar
+router.post("/profile/update", authorize, uploadImg.single("avatar"), validate,
+  (req, res, next) => {
+    const user = req.session.currentUser;
+    const { username, quote } = req.body;
+    const avatar =
+      req.file != undefined ? req.file.path.split("public/")[1] : user.avatar;
 
   User.findOneAndUpdate({ username: user.username }, { username, quote, avatar }, { new: true })
     .then((user) => {
