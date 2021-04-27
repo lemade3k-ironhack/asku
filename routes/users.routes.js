@@ -36,7 +36,7 @@ router.post("/signin", validateEmpty, (req, res, next) => {
           if (isMatching) {
             req.app.locals.isCurrentUser = true;
             req.session.currentUser = user;
-
+            
             res.redirect(`/profile`);
           } else {
             res.render("users/signin.hbs", {

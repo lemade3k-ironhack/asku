@@ -4,7 +4,12 @@ const User = require("../models/User.model");
 
 // middleware for authorization
 const authorize = (req, res, next) => {
-  req.session.currentUser ? next() : res.redirect("/");
+  if (req.session.currentUser) {
+    req.app.locals.isCurrentUser = true;
+    next()
+  } else { 
+    res.redirect("/")
+  }
 };
 
 /* GET /groups/new  */
