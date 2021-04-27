@@ -1,0 +1,20 @@
+<section>
+  <h1>{{movie.title}}</h1>
+  <a href="/groups/{{groupId}}/movies/{{movie._id}}/edit">Edit movie</a>
+</section>
+
+<section>
+  <!-- ToDo: Refactor. Use uploaded videos because of Cross-Origin Read Blocking (CORB) -->
+  <video width="500" controls>
+    <source src="{{movie.trailer}}" type="video/mp4">
+  </video>
+</section>
+
+<section>
+  <p>{{movie.plot}}</p>
+</section>
+
+<section>
+  <p>{{movie.director}}</p>
+  <p>{{movie.genre}}</p>
+</section>

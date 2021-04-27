@@ -49,11 +49,11 @@ app.use("/", index);
 const profiles = require("./routes/profiles.routes");
 app.use("/", profiles);
 
-//const groups = require("./routes/groups.routes");
-//app.use("/", groups);
+const groups = require("./routes/groups.routes");
+app.use("/", groups);
 
-//const movies = require("./routes/movies.routes");
-//app.use("/", movies);
+const movies = require("./routes/movies.routes");
+app.use("/", movies);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in
 // specific routes
