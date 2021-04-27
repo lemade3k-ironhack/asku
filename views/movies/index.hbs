@@ -7,8 +7,9 @@
 
   <section>
     <a href="/groups/{{group._id}}/movies/new">Add new movie</a>
+
     {{#each movies}}
-    <a href="/groups/{{group._id}}/movies/{{this._id}}">
+    <a href="/groups/{{../group._id}}/movies/{{this._id}}">
       <img src="{{this.image}}" alt="{{this.title}}-image">
       <span>{{this.title}}</span>
     </a>
