@@ -1,31 +1,19 @@
 const router = require("express").Router();
+
 const Group = require("../models/Group.model");
 const User = require("../models/User.model");
 
 // require middlewares
 const { authorize } = require("../middlewares/authorization")
+const { validate } = require("../middlewares/validations/groups")
 
 /* GET /groups/new  */
 router.get("/groups/new", authorize, (req, res) => {
   res.render("groups/new.hbs");
 });
 
-/* middleware to validate user input */
-const validateInput = (req, res, next) => {
-  const { groupName, image, description } = req.body;
-
-  if (!groupName) {
-    res.render("groups/new.hbs", { 
-      groupName, image, description, 
-      msg: "Please add a name for your group!" 
-    });
-  } else {
-    next();
-  }
-};
-
 /* POST /groups/create */
-router.post("/groups/create", validateInput, (req, res, next) => {
+router.post("/groups/create", validate, (req, res, next) => {
   const { groupName, image, description } = req.body;
   const user = req.session.currentUser;
 
@@ -58,22 +46,8 @@ router.get("/groups/:groupId/edit", authorize, (req, res, next) => {
     .catch((err) => next(err));
 });
 
-/* middleware to validate user input */
-const validateEdit = (req, res, next) => {
-  const { groupName, image, description } = req.body;
-
-  if (!groupName) {
-    res.render("groups/edit.hbs", {
-      groupName, image, description, 
-      msg: "Please add a name for your group!",
-    });
-  } else {
-    next();
-  }
-};
-
 /* POST /groups/:groupId/update  */
-router.post("/groups/:groupId/update", authorize, validateEdit, (req, res, next) => {
+router.post("/groups/:groupId/update", authorize, validate, (req, res, next) => {
   const { groupName, image, description } = req.body;
   const groupId = req.params.groupId
 

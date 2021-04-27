@@ -9,13 +9,13 @@
 
     <form action="/groups/create" method="POST">
       <label for="image"></label>
-      <input type="url" placeholder="place a new URL for your avatar" name="avatar" value="{{ group.image }}">
+      <input  name="image" type="url" placeholder="place a new URL for your avatar" value="{{ group.image }}">
 
       <label for="groupName">Group Name:</label>
-      <input type="text" placeholder="groupName" required name="groupName" value="{{ group.groupName }}" />
+      <input name="groupName" type="text" placeholder="groupName" value="{{ group.groupName }}" />
 
       <label for="description">What's your group about?</label>
-      <input type="text" placeholder="Add a description of your group!" name="description"
+      <input name="description" type="text" placeholder="Add a description of your group!"
         value="{{group.description}}">
 
       <button type="submit">Create</button>
