@@ -2,8 +2,8 @@ const router = require("express").Router();
 const Group = require("../models/Group.model");
 const User = require("../models/User.model");
 
-/* GET /groups/new group */
-router.get("/groups/new", (req, res, next) => {
+/* GET /groups/new  */
+router.get("/groups/new", (req, res) => {
   res.render("groups/new.hbs");
 });
 
@@ -41,6 +41,11 @@ router.post("/groups/create", validateInput, (req, res, next) => {
       })
       .catch((err) => next(err));
   });
+});
+
+/* GET /groups/:groupId  */
+router.get("/groups/:groupId", (req, res) => {
+  res.render("groups/show.hbs");
 });
 
 module.exports = router;
