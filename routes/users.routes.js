@@ -4,7 +4,7 @@ const User = require("../models/User.model");
 
 /* GET / */
 router.get("/", (req, res, next) => {
-  res.render("users/signin.hbs");
+  req.session.currentUser ? res.redirect("/profile") : res.render("users/signin.hbs")
 });
 
 /* Custom Middleware: Validate user input */
@@ -44,9 +44,7 @@ router.post("/signin", validateEmpty, (req, res, next) => {
         });
       }
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch((err) => next(err));
 });
 
 /* GET /signup */
