@@ -12,7 +12,9 @@ const validateEmpty = (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    res.render("users/signup.hbs", { msg: "Please fill all the fields!" });
+    res.render("users/signin.hbs", { 
+      username, password, msg: "Please fill all the fields!" 
+    });
   }
   next();
 };
@@ -25,6 +27,7 @@ router.post("/signin", validateEmpty, (req, res, next) => {
     .then((user) => {
       if (!user) {
         res.render("users/signin.hbs", {
+          username, password,
           msg:
             "Oh no, something went wrong! Please check again if your username or password are correct!",
         });
@@ -57,7 +60,10 @@ const validateNewEmpty = (req, res, next) => {
   const { username, password, passwordConfirmation } = req.body;
 
   if (!username || !password || !passwordConfirmation) {
-    res.render("users/signup.hbs", { msg: "Please fill all the fields!" });
+    res.render("users/signup.hbs", { 
+      username, password, passwordConfirmation,
+      msg: "Please fill all the fields!" 
+    });
   }
   next();
 };
@@ -67,10 +73,7 @@ const validPwd = (req, res, next) => {
   const pwReg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
   const renderFormWithError = (err) => {
     res.render("users/signup.hbs", {
-      username,
-      password,
-      passwordConfirmation,
-      msg: err,
+      username, password, passwordConfirmation, msg: err,
     });
   };
 

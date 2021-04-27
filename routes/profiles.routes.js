@@ -16,18 +16,8 @@ require("../models/Group.model");
 
 // middleware for authorization
 const authorize = (req, res, next) => {
-  req.session.currentUser ? next() : res.redirect("/", { msg: "You are not logged in" });
+  req.session.currentUser ? next() : res.redirect("/");
 };
-
-/* GET /profile */
-router.get("/profile", authorize, (req, res, next) => {
-  const user = req.session.currentUser;
-
-  User.findOne({ username: user.username })
-    .populate("groups")
-    .then((user) => res.render("profiles/show.hbs", { user }))
-    .catch((err) => next(err));
-});
 
 /* GET/ edit route  */
 router.get("/profile/edit", authorize, (req, res, next) => {
@@ -67,6 +57,16 @@ router.post("/profile/update", upload.single("avatar"), validateInput, (req, res
       req.session.currentUser = user
       res.redirect("/profile")
     })
+    .catch((err) => next(err));
+});
+
+/* GET /profile */
+router.get("/profile", authorize, (req, res, next) => {
+  const user = req.session.currentUser;
+
+  User.findOne({ username: user.username })
+    .populate("groups")
+    .then((user) => res.render("profiles/show.hbs", { user }))
     .catch((err) => next(err));
 });
 

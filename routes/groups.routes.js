@@ -4,17 +4,8 @@ const User = require("../models/User.model");
 
 // middleware for authorization
 const authorize = (req, res, next) => {
-  req.session.currentUser ? next() : res.redirect("/", { msg: "You are not logged in" });
+  req.session.currentUser ? next() : res.redirect("/");
 };
-
-/* GET /groups/:groupId  */
-router.get("/groups/:groupId", authorize, (req, res) => {
-  const groupId = req.params.groupId;
-
-  Group.findById(groupId)
-    .then((group) => res.render("groups/show.hbs", { group }))
-    .catch((err) => next(err));
-});
 
 /* GET /groups/new  */
 router.get("/groups/new", authorize, (req, res) => {
@@ -90,6 +81,15 @@ router.post("/groups/:groupId/update", authorize, validateEdit, (req, res, next)
 
   Group.findByIdAndUpdate(groupId, { groupName, image, description })
     .then(() => { res.redirect("/groups/" + groupId)})
+    .catch((err) => next(err));
+});
+
+/* GET /groups/:groupId  */
+router.get("/groups/:groupId", authorize, (req, res, next) => {
+  const groupId = req.params.groupId;
+
+  Group.findById(groupId)
+    .then((group) => res.render("groups/show.hbs", { group }))
     .catch((err) => next(err));
 });
 

@@ -4,7 +4,7 @@ const Movie = require("../models/Movie.model");
 
 // middleware for authorization
 const authorize = (req, res, next) => {
-  req.session.currentUser ? next() : res.redirect("/", { msg: "You are not logged in" });
+  req.session.currentUser ? next() : res.redirect("/");
 };
 
 /* GET groups/:groupId/movies/new */

@@ -4,7 +4,10 @@
 </section>
 
 <section>
-  <video src="{{movie.trailer}}"></video>
+  <!-- ToDo: Refactor. Use uploaded videos because of Cross-Origin Read Blocking (CORB) -->
+  <video width="500" controls>
+    <source src="{{movie.trailer}}" type="video/mp4">
+  </video>
 </section>
 
 <section>
