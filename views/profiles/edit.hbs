@@ -11,8 +11,7 @@
     {{/if}}
 
     <form action="/profile/update" method="POST" enctype="multipart/form-data">
-      <label for="avatar"></label>
-      <input name="avatar" type="file" accept="image/png,image/jpg,image/jpeg">
+      <input name="avatar" type="file" accept="image/png image/jpg image/jpeg">
 
       <label for="username">Username:</label>
       <input name="username" type="text" placeholder="Edit username" value="{{ user.username }}" />

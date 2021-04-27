@@ -7,15 +7,15 @@
     <div>{{msg}}</div>
     {{/if}}
 
-    <form action="/groups/create" method="POST">
-      <label for="image"></label>
-      <input type="url" placeholder="place a new URL for your avatar" name="avatar" value="{{ group.image }}">
+    <form action="/groups/create" method="POST" enctype="multipart/form-data">
+      <label for="image">Add a Group Image</label>
+      <input name="image" type="file" accept="image/png image/jpg image/jpeg">
 
-      <label for="groupName">Group Name:</label>
-      <input type="text" placeholder="groupName" required name="groupName" value="{{ group.groupName }}" />
+      <label for="groupName">Group Name</label>
+      <input name="groupName" type="text" placeholder="groupName" value="{{ group.groupName }}" />
 
       <label for="description">What's your group about?</label>
-      <input type="text" placeholder="Add a description of your group!" name="description"
+      <input name="description" type="text" placeholder="Add a description of your group!"
         value="{{group.description}}">
 
       <button type="submit">Create</button>

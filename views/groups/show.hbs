@@ -7,10 +7,14 @@
 
   <section>
     <a href="/groups/{{group._id}}/movies/new">Add new movie</a>
-    <!-- 
-    {{#each group.movies}}
-    <a href="/movies/{{this.title}}">{{this.image}}</a>
-    {{/each}} 
-    -->
+
+    {{#each movies}}
+    <a href="/groups/{{../group._id}}/movies/{{this._id}}">
+      <img src="{{this.image}}" alt="{{this.title}}-preview-image">
+      {{this.title}}
+    </a>
+    {{/each}}
+
+    <a href="/groups/{{group._id}}/movies/">Show all movies</a>
   </section>
 </main>
