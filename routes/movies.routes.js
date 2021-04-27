@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Group = require("../models/Group.model");
 const Movie = require("../models/Movie.model");
 
-const { authorize } = require("../middlewares/authorization")
+const authorize = require("../middlewares/authorization");
 const validate = require("../middlewares/validations/movies")
 const uploader = require("../middlewares/cloudinary.config");
 

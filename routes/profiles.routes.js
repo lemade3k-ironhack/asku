@@ -2,8 +2,8 @@ const router = require("express").Router();
 const User = require("../models/User.model");
 
 // require middlewares
-const { authorize } = require("../middlewares/authorization");
-const { validate } = require("../middlewares/validations/profiles");
+const authorize = require("../middlewares/authorization");;
+const validate = require("../middlewares/validations/profiles");
 const uploader = require("../middlewares/cloudinary.config");
 
 /* GET/ edit route  */

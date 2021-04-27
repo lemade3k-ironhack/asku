@@ -4,8 +4,8 @@ const Group = require("../models/Group.model");
 const User = require("../models/User.model");
 
 // require middlewares
-const { authorize } = require("../middlewares/authorization")
-const { validate } = require("../middlewares/validations/groups")
+const authorize = require("../middlewares/authorization");
+const validate = require("../middlewares/validations/groups")
 const uploader = require("../middlewares/cloudinary.config");
 
 /* GET /groups/new  */
