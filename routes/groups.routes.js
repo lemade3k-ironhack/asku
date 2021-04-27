@@ -6,6 +6,7 @@ const User = require("../models/User.model");
 // require middlewares
 const { authorize } = require("../middlewares/authorization")
 const { validate } = require("../middlewares/validations/groups")
+const uploader = require("../middlewares/cloudinary.config");
 
 /* GET /groups/new  */
 router.get("/groups/new", authorize, (req, res) => {
@@ -13,20 +14,21 @@ router.get("/groups/new", authorize, (req, res) => {
 });
 
 /* POST /groups/create */
-router.post("/groups/create", validate, (req, res, next) => {
-  const { groupName, image, description } = req.body;
+router.post("/groups/create", authorize, uploader.single("image"), validate, (req, res, next) => {
   const user = req.session.currentUser;
+  const { groupName, image, description } = req.body;
+  const newImg = (req.file != undefined) ? req.file.path : image;
 
   Group.findOne({ groupName }).then((group) => {
     if (group) {
       res.render("groups/new.hbs", {
-        groupName, image, description,
+        groupName, image: newImg, description,
         msg: "Group Name already taken",
       });
       return;
     }
 
-    Group.create({ groupName, image, description, members: [user._id] })
+    Group.create({ groupName, image: newImg, description, members: [user._id] })
       .then((group) => {
         User.findOneAndUpdate(
           { username: user.username },
@@ -47,11 +49,12 @@ router.get("/groups/:groupId/edit", authorize, (req, res, next) => {
 });
 
 /* POST /groups/:groupId/update  */
-router.post("/groups/:groupId/update", authorize, validate, (req, res, next) => {
-  const { groupName, image, description } = req.body;
+router.post("/groups/:groupId/update", authorize, uploader.single("image"), validate, (req, res, next) => {
   const groupId = req.params.groupId
+  const { groupName, image, description } = req.body;
+  const newImg = (req.file != undefined) ? req.file.path : image;
 
-  Group.findByIdAndUpdate(groupId, { group: {groupName, image, description} })
+  Group.findByIdAndUpdate(groupId, { groupName, image: newImg, description })
     .then(() => { res.redirect("/groups/" + groupId)})
     .catch((err) => next(err));
 });
