@@ -7,20 +7,11 @@ const authorize = (req, res, next) => {
   req.session.currentUser ? next() : res.redirect("/", { msg: "You are not logged in" });
 };
 
-/* GET groups/:groupId/movies */
-router.get("/groups/:groupId/movies", authorize, (req, res, next) => {
-  const groupId = req.params.groupId;
-
-  Group.findById(groupId)
-    .populate("movies")
-    .then((group) => res.render("movies/index.hbs", { group, movies: group.movies }))
-    .catch((err) => next(err));
-});
 
 /* GET groups/:groupId/movies/new */
 router.get("/groups/:groupId/movies/new", authorize, (req, res) => {
   const groupId = req.params.groupId;
-  
+
   res.render("movies/new.hbs", { groupId });
 });
 
@@ -51,5 +42,25 @@ router.post("/groups/:groupId/movies/create", authorize, validateEmpty, (req, re
       .catch((err) => next(err));
   }
 );
+
+/* GET groups/:groupId/movies/:movieId */
+router.get("/groups/:groupId/movies/:movieId", authorize, (req, res, next) => {
+  const movieId = req.params.movieId
+
+  Movie.findById(movieId)
+    .populate("group")
+    .then((movie) => res.render("movies/show.hbs", { movie, group: movie.group }))
+    .catch((err) => next(err));
+})
+
+/* GET groups/:groupId/movies */
+router.get("/groups/:groupId/movies", authorize, (req, res, next) => {
+  const groupId = req.params.groupId;
+
+  Group.findById(groupId)
+    .populate("movies")
+    .then((group) => res.render("movies/index.hbs", { group, movies: group.movies }))
+    .catch((err) => next(err));
+});
 
 module.exports = router;
