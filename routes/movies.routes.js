@@ -1,16 +1,8 @@
 const router = require("express").Router();
 const Group = require("../models/Group.model");
 const Movie = require("../models/Movie.model");
+const { authorize } = require("../middlewares/authorization")
 
-// middleware for authorization
-const authorize = (req, res, next) => {
-  if (req.session.currentUser) {
-    req.app.locals.isCurrentUser = true;
-    next()
-  } else { 
-    res.redirect("/")
-  }
-};
 
 /* GET groups/:groupId/movies/new */
 router.get("/groups/:groupId/movies/new", authorize, (req, res) => {

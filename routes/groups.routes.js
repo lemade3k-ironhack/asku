@@ -2,15 +2,8 @@ const router = require("express").Router();
 const Group = require("../models/Group.model");
 const User = require("../models/User.model");
 
-// middleware for authorization
-const authorize = (req, res, next) => {
-  if (req.session.currentUser) {
-    req.app.locals.isCurrentUser = true;
-    next()
-  } else { 
-    res.redirect("/")
-  }
-};
+// require middlewares
+const { authorize } = require("../middlewares/authorization")
 
 /* GET /groups/new  */
 router.get("/groups/new", authorize, (req, res) => {

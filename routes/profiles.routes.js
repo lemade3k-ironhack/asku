@@ -12,17 +12,9 @@ const storage = multer.diskStorage({
 });
 
 const User = require("../models/User.model");
-require("../models/Group.model");
 
-// middleware for authorization
-const authorize = (req, res, next) => {
-  if (req.session.currentUser) {
-    req.app.locals.isCurrentUser = true;
-    next()
-  } else { 
-    res.redirect("/")
-  }
-};
+// require middlewares
+const { authorize } = require("../middlewares/authorization");
 
 /* GET/ edit route  */
 router.get("/profile/edit", authorize, (req, res, next) => {
