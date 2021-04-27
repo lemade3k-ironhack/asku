@@ -1,7 +1,9 @@
 const router = require("express").Router();
 const Group = require("../models/Group.model");
 const Movie = require("../models/Movie.model");
+
 const { authorize } = require("../middlewares/authorization")
+const { validate } = require("../middlewares/validations/movies")
 
 /* GET groups/:groupId/movies */
 router.get("/groups/:groupId/movies", authorize, (req, res, next) => {
@@ -22,19 +24,8 @@ router.get("/groups/:groupId/movies/new", authorize, (req, res) => {
   res.render("movies/new.hbs", { groupId });
 });
 
-/* Custom Middleware: Validate user input */
-const validateEmpty = (req, res, next) => {
-  const movie = req.body;
-
-  if (!movie.title) {
-    res.render("movies/new.hbs", { movie, msg: "Title must be filled out!" });
-  } else {
-    next();
-  }
-};
-
 /* POST groups/:groupId/movies/create */
-router.post("/groups/:groupId/movies/create", authorize, validateEmpty, (req, res) => {
+router.post("/groups/:groupId/movies/create", authorize, validate, (req, res) => {
     const { title, plot, genre, director, image, trailer } = req.body;
     const groupId = req.params.groupId;
 
@@ -73,7 +64,7 @@ const validateEmptyUpdate = (req, res, next) => {
 };
 
 /* POST /groups/:groupId/movies/:movieId/update */
-router.post("/groups/:groupId/movies/:movieId/update", authorize, validateEmptyUpdate, (req, res, next) => {
+router.post("/groups/:groupId/movies/:movieId/update", authorize, validate, (req, res, next) => {
     const movieId = req.params.movieId;
     const groupId = req.params.groupId;
     const { title, plot, genre, director, image, trailer } = req.body;
