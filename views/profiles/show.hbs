@@ -12,15 +12,12 @@
 
   <a href="/groups/new">Create a group</a>
 
-  <a href="/groups">Groups</a>
-
-
   {{#if user.groups}}
 
   <section>
     <h2>My Groups</h2>
     {{#each user.groups}}
-    <img src="{{this.image}}" alt="group-image">
+    <a href="/groups/{{this._id}}"><img src="{{this.image}}" alt="group-image"></a>
     {{/each}}
   </section>
   {{/if}}

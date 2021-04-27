@@ -1,13 +1,15 @@
-<main id='groups'>
+<main id='group'>
   <section>
-    <h1> {{username}}'s groups!</h1>
-
-    {{#if msg}}
-    <div>{{msg}}</div>
-    {{/if}}
-
-      <img src="{{group.image}}" alt="group-image">
-      <p>{{group.groupName}} </p>
-      <p>{{group.description}} </p>
-    
+    <img src="{{group.image}}" alt="group-image">
+    <h1> {{group.groupName}}</h1>
+    <a href="/groups/{{group._id}}/edit">Edit Group</a>
   </section>
+
+  <section>
+    <!-- 
+    {{#each group.movies}}
+    <a href="/movies/{{this.title}}">{{this.image}}</a>
+    {{/each}} 
+    -->
+  </section>
+</main>

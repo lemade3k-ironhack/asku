@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Group = require("../models/Group.model");
+const User = require("../models/User.model");
 
 // middleware for authorization
 const authorize = (req, res, next) => {
@@ -8,7 +9,11 @@ const authorize = (req, res, next) => {
 
 /* GET /groups/:groupId  */
 router.get("/groups/:groupId", authorize, (req, res) => {
-  res.render("groups/show.hbs");
+  const groupId = req.params.groupId;
+
+  Group.findById(groupId)
+    .then((group) => res.render("groups/show.hbs", { group }))
+    .catch((err) => next(err));
 });
 
 /* GET /groups/new  */
@@ -31,8 +36,9 @@ const validateInput = (req, res, next) => {
 };
 
 /* POST /groups/create */
-router.post("/groups/create", authorize, validateInput, (req, res, next) => {
+router.post("/groups/create", validateInput, (req, res, next) => {
   const { groupName, image, description } = req.body;
+  const user = req.session.currentUser;
 
   Group.findOne({ groupName }).then((group) => {
     if (group) {
@@ -40,11 +46,16 @@ router.post("/groups/create", authorize, validateInput, (req, res, next) => {
         groupName, image, description,
         msg: "Group Name already taken",
       });
-
       return;
     }
-    Group.create({ groupName, image, description })
-      .then(() => res.redirect("/profile"))
+
+    Group.create({ groupName, image, description, members: [user._id] })
+      .then((group) => {
+        User.findOneAndUpdate(
+          { username: user.username },
+          { $push: { groups: group._id } }
+        ).then(() => res.redirect("/profile"));
+      })
       .catch((err) => next(err));
   });
 });
