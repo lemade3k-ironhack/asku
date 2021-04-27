@@ -4,7 +4,7 @@ const Group = require("../models/Group.model");
 const User = require("../models/User.model");
 
 // require middlewares
-const authorize = require("../middlewares/authorization");
+const { authorize, authMember } = require("../middlewares/authorization");
 const validate = require("../middlewares/validations/groups")
 const uploader = require("../middlewares/cloudinary.config");
 
@@ -40,7 +40,7 @@ router.post("/groups/create", authorize, uploader.single("image"), validate, (re
 });
 
 /* GET /groups/:groupId/edit  */
-router.get("/groups/:groupId/edit", authorize, (req, res, next) => {
+router.get("/groups/:groupId/edit", authorize, authMember, (req, res, next) => {
   const groupId = req.params.groupId;
 
   Group.findById( groupId )
@@ -49,7 +49,7 @@ router.get("/groups/:groupId/edit", authorize, (req, res, next) => {
 });
 
 /* POST /groups/:groupId/update  */
-router.post("/groups/:groupId/update", authorize, uploader.single("image"), validate, (req, res, next) => {
+router.post("/groups/:groupId/update", authorize, authMember, uploader.single("image"), validate, (req, res, next) => {
   const groupId = req.params.groupId
   const { groupName, image, description } = req.body;
   const newImg = (req.file != undefined) ? req.file.path : image;
@@ -60,7 +60,7 @@ router.post("/groups/:groupId/update", authorize, uploader.single("image"), vali
 });
 
 /* GET /groups/:groupId  */
-router.get("/groups/:groupId", authorize, (req, res, next) => {
+router.get("/groups/:groupId", authorize, authMember, (req, res, next) => {
   const groupId = req.params.groupId;
 
   Group.findById(groupId)
