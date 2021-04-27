@@ -17,7 +17,9 @@
   <section>
     <h2>My Groups</h2>
     {{#each user.groups}}
-    <a href="/groups/{{this._id}}"><img src="{{this.image}}" alt="group-image"></a>
+    <a href="/groups/{{this._id}}">
+    <img src="{{this.image}}" alt="group-image">
+    </a>
     {{/each}}
   </section>
   {{/if}}

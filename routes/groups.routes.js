@@ -64,7 +64,11 @@ router.get("/groups/:groupId", authorize, (req, res, next) => {
   const groupId = req.params.groupId;
 
   Group.findById(groupId)
-    .then((group) => res.render("groups/show.hbs", { group }))
+    .populate("movies")
+    .then((group) => {
+      const movies = group.movies.slice(0, 5)
+      res.render("groups/show.hbs", { group, movies })
+    })
     .catch((err) => next(err));
 });
 
