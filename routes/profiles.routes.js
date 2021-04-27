@@ -4,7 +4,7 @@ const User = require("../models/User.model");
 // require middlewares
 const { authorize } = require("../middlewares/authorization");
 const { validate } = require("../middlewares/validations/profiles");
-const { uploadImg } = require("../middlewares/imageUploads");
+const uploader = require("../middlewares/cloudinary.config");
 
 /* GET/ edit route  */
 router.get("/profile/edit", authorize, (req, res, next) => {
@@ -16,12 +16,11 @@ router.get("/profile/edit", authorize, (req, res, next) => {
 });
 
 /* POST/ update  */
-router.post("/profile/update", authorize, uploadImg.single("avatar"), validate,
+router.post("/profile/update", authorize, uploader.single("avatar"), validate,
   (req, res, next) => {
     const user = req.session.currentUser;
     const { username, quote } = req.body;
-    const avatar =
-      req.file != undefined ? req.file.path.split("public/")[1] : user.avatar;
+    const avatar = (req.file != undefined) ? req.file.path : user.avatar;
 
     User.findByIdAndUpdate(user._id, { username, quote, avatar }, { new: true })
       .then((user) => {
