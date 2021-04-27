@@ -3,7 +3,6 @@ const validate = (req, res, next) => {
   const group = req.body;
   const path = req.route.path.match("create") ? "groups/new.hbs" : "groups/edit.hbs";
 
-  console.log(group);
   if (!group.groupName) {
     res.render(path, { group, msg: "Please add a name for your group!" });
   } else {
@@ -11,4 +10,4 @@ const validate = (req, res, next) => {
   }
 };
 
-module.exports = { validate };
+module.exports = validate;

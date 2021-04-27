@@ -6,7 +6,7 @@
     <div>{{msg}}</div>
     {{/if}}
 
-    <form action="/groups/{{groupId}}/movies/create" method="POST">
+    <form action="/groups/{{groupId}}/movies/create" method="POST" enctype="multipart/form-data">
       <label for="title">Title:</label>
       <input name="title" type="text" placeholder="Add movies title" value="{{ movie.title }}" />
 
@@ -20,7 +20,7 @@
       <input name="director" type="text" placeholder="Add a director" value="{{ movie.director }}" />
 
       <label for="image">Preview Image:</label>
-      <input name="image" type="url" placeholder="Add an URL for a preview image" value="{{ movie.image }}">
+      <input name="image" type="file" accept="image/png image/jpg image/jpeg">
 
       <label for="trailer">Trailer:</label>
       <input name="trailer" type="url" placeholder="Add an URL for a trailer" value="{{ movie.trailer }}">

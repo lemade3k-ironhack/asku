@@ -2,8 +2,9 @@ const router = require("express").Router();
 const Group = require("../models/Group.model");
 const Movie = require("../models/Movie.model");
 
-const { authorize } = require("../middlewares/authorization")
-const { validate } = require("../middlewares/validations/movies")
+const authorize = require("../middlewares/authorization");
+const validate = require("../middlewares/validations/movies")
+const uploader = require("../middlewares/cloudinary.config");
 
 /* GET groups/:groupId/movies */
 router.get("/groups/:groupId/movies", authorize, (req, res, next) => {
@@ -25,19 +26,20 @@ router.get("/groups/:groupId/movies/new", authorize, (req, res) => {
 });
 
 /* POST groups/:groupId/movies/create */
-router.post("/groups/:groupId/movies/create", authorize, validate, (req, res) => {
-    const { title, plot, genre, director, image, trailer } = req.body;
-    const groupId = req.params.groupId;
+router.post("/groups/:groupId/movies/create", authorize, uploader.single("image"), validate, (req, res) => {
+  const groupId = req.params.groupId;
+  const { title, plot, genre, director, image, trailer } = req.body;
+  const newImg = (req.file != undefined) ? req.file.path : image;
 
-    Movie.create({ 
-      title, plot, genre, director, image, trailer, _group: groupId,
+  Movie.create({ 
+    title, plot, genre, director, image: newImg, trailer, _group: groupId,
+  })
+    .then((movie) => {
+      Group.findByIdAndUpdate(groupId, {
+        $push: { movies: movie._id },
+      }).then(() => res.redirect(`/groups/${groupId}/movies`));
     })
-      .then((movie) => {
-        Group.findByIdAndUpdate(groupId, {
-          $push: { movies: movie._id },
-        }).then(() => res.redirect(`/groups/${groupId}/movies`));
-      })
-      .catch((err) => next(err));
+    .catch((err) => next(err));
   }
 );
 
@@ -52,25 +54,15 @@ router.get("/groups/:groupId/movies/:movieId/edit", authorize, (req, res, next) 
   }
 );
 
-/* Custom Middleware: Validate user input */
-const validateEmptyUpdate = (req, res, next) => {
-  const movie = req.body;
-
-  if (!movie.title) {
-    res.render("movies/edit.hbs", { movie, msg: "Title must be filled out" });
-  } else {
-    next();
-  }
-};
-
 /* POST /groups/:groupId/movies/:movieId/update */
-router.post("/groups/:groupId/movies/:movieId/update", authorize, validate, (req, res, next) => {
+router.post("/groups/:groupId/movies/:movieId/update", authorize, uploader.single("image"), validate, (req, res, next) => {
     const movieId = req.params.movieId;
     const groupId = req.params.groupId;
     const { title, plot, genre, director, image, trailer } = req.body;
+    const newImg = (req.file != undefined) ? req.file.path : image;
 
     Movie.findByIdAndUpdate(movieId, {
-      title, plot, genre, director, image, trailer,
+      title, plot, genre, director, image: newImg, trailer,
     })
       .then(() => res.redirect(`/groups/${groupId}/movies/${movieId}`))
       .catch((err) => next(err));
