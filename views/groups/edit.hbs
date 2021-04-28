@@ -9,6 +9,7 @@
 
     <form action="/groups/{{group._id}}/update" method="POST" enctype="multipart/form-data">
       <img src="{{group.image}}" alt="group-image">
+      <input name="oldImg" type="hidden" value="{{ group.image }}">
       <input name="image" type="file" accept="image/png image/jpg image/jpeg">
 
       <label for="groupName">Group Name:</label>
@@ -17,6 +18,9 @@
       <label for="description">What's your group about?</label>
       <input type="text" placeholder="Add a description of your group!" name="description"
         value="{{group.description}}">
+
+      <label for="members">Members:</label>
+      <input name="members" type="text" placeholder="Alice, Bob, Ada" value="{{ group.members }}">
 
       <button type="submit">Update</button>
     </form>
