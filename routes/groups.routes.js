@@ -19,8 +19,8 @@ router.get("/groups/new", authorize, (req, res) => {
 /* POST /groups/create */
 router.post("/groups/create", authorize, uploader.single("image"), validate, async (req, res, next) => {
   const user = req.session.currentUser;
-  const { groupName, image, description } = req.body;
-  const newImg = (req.file != undefined) ? req.file.path : image;
+  const { groupName, members, description } = req.body;
+  const image = (req.file != undefined) ? req.file.path : "/images/logoDummy.png";
   // wait for helper functions promises to finish before returning something
   const groupMembers = await updateMembers(members, user)
 
@@ -34,7 +34,8 @@ router.post("/groups/create", authorize, uploader.single("image"), validate, asy
       return;
     }
   
-    Group.create({ groupName, image: newImg, description, users: groupMembers })
+    // create group and asign to user 
+    Group.create({ groupName, image, description, users: groupMembers })
       .then((group) => {
         const groupId = group._id
         User.findOneAndUpdate({ username: user.username }, { $push: { groups: groupId } })
@@ -69,12 +70,12 @@ router.post(
   uploader.single("image"), validate, async (req, res, next) => {
   const user = req.session.currentUser
   const groupId = req.params.groupId
-  const { groupName, image, description } = req.body;
-  const newImg = (req.file != undefined) ? req.file.path : image;
+  const { groupName, members, description } = req.body;
+  const image = (req.file != undefined) ? req.file.path : req.body.oldImg;
   // wait for helper functions promises to finish before returning something
   const groupMembers = await updateMembers(members, user)
 
-  Group.findByIdAndUpdate(groupId, { groupName, image: newImg, description })
+  Group.findByIdAndUpdate(groupId, { groupName, image, description, users: groupMembers })
     .then(() => { res.redirect("/groups/" + groupId)})
     .catch((err) => next(err));
 });
@@ -88,8 +89,7 @@ router.get("/groups/:groupId", authorize, authMember, (req, res, next) => {
     .populate("users")
     .then((group) => {
       const movies = group.movies.slice(0, 5)
-      console.log(group.users)
-      res.render("groups/show.hbs", { group, movies, members: group.users })
+      res.render("groups/show.hbs", { msg, group, movies, members: group.users })
     })
     .catch((err) => next(err));
 });
