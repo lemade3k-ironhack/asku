@@ -19,6 +19,25 @@ router.post("/groups/create", authorize, uploader.single("image"), validate, (re
   const { groupName, image, description } = req.body;
   const newImg = (req.file != undefined) ? req.file.path : image;
 
+  // add members to group
+  // ToDo: move to middleware
+  let members = req.body.members.split(', ')
+  let groupMembers = [user._id]
+
+  members.forEach(member => {
+    User.findOne({username: member})
+      .then(resUser => {
+        if (resUser.username != user.username) {
+          groupMembers.push(resUser.id)
+        }
+        return;
+      })
+      .catch(() => {
+        console.log("User not found")
+        return;
+      })
+  })
+
   Group.findOne({ groupName }).then((group) => {
     if (group) {
       res.render("groups/new.hbs", {
@@ -27,13 +46,12 @@ router.post("/groups/create", authorize, uploader.single("image"), validate, (re
       });
       return;
     }
-
-    Group.create({ groupName, image: newImg, description, members: [user._id] })
+  
+    Group.create({ groupName, image: newImg, description, users: groupMembers })
       .then((group) => {
-        User.findOneAndUpdate(
-          { username: user.username },
-          { $push: { groups: group._id } }
-        ).then(() => res.redirect("/profile"));
+        const groupId = group._id
+        User.findOneAndUpdate({ username: user.username }, { $push: { groups: groupId } })
+        .then(() => res.redirect("/groups/" + groupId));
       })
       .catch((err) => next(err));
   });
@@ -65,9 +83,11 @@ router.get("/groups/:groupId", authorize, authMember, (req, res, next) => {
 
   Group.findById(groupId)
     .populate("movies")
+    .populate("users")
     .then((group) => {
       const movies = group.movies.slice(0, 5)
-      res.render("groups/show.hbs", { group, movies })
+      console.log(group.users)
+      res.render("groups/show.hbs", { group, movies, members: group.users })
     })
     .catch((err) => next(err));
 });
