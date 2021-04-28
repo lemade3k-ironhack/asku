@@ -89,7 +89,7 @@ router.get("/groups/:groupId", authorize, authMember, (req, res, next) => {
     .populate("users")
     .then((group) => {
       const movies = group.movies.slice(0, 5)
-      res.render("groups/show.hbs", { msg, group, movies, members: group.users })
+      res.render("groups/show.hbs", { group, movies, members: group.users })
     })
     .catch((err) => next(err));
 });
