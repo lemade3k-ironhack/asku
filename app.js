@@ -42,6 +42,12 @@ app.use(
   })
 );
 
+// set up flash messaging
+const flash = require("express-flash")
+const cookieParser = require('cookie-parser');
+app.use(cookieParser(process.env.COOKIE_PARSER_SECRET));
+app.use(flash());
+
 // 👇 Start handling routes here
 const index = require("./routes/users.routes");
 app.use("/", index);

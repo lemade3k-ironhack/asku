@@ -14,28 +14,18 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-5">
-          <section>
+          <div class="group-members">
             {{#each members}}
             <img src="{{this.avatar}}" alt="{{this.username}}-avatar">
+            <p>{{this.username}}</p>
             {{/each}}
-          </section>
-
-          <section>
-            <a href="/groups/{{group._id}}/movies/new">Add new movie</a>
-
-            {{#each movies}}
-            <a href="/groups/{{../group._id}}/movies/{{this._id}}">
-              <img src="{{this.image}}" alt="{{this.title}}-preview-image">
-              {{this.title}}
-            </a>
-            {{/each}}
-          </section>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-11 offset-md-1 movies-list ">
           {{#each movies}}
-          <a class=" movie-title" href="/groups/{{../group._id}}/movies/{{this._id}}">
+          <a class="movie-title" href="/groups/{{../group._id}}/movies/{{this._id}}">
             <img class="movie-image" src="{{this.image}}" alt="{{this.title}}-preview-image">
             <p class="text-break">{{this.title}}</p>
           </a>
