@@ -18,6 +18,9 @@
       <input type="text" placeholder="Add a description of your group!" name="description"
         value="{{group.description}}">
 
+      <label for="members">Members:</label>
+      <input name="members" type="text" placeholder="Alice, Bob, Ada" value="{{ group.members }}">
+
       <button type="submit">Update</button>
     </form>
   </section>
