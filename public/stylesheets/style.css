@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #1F1F1F;
   color: #ffffff;
@@ -13,17 +12,49 @@ h1 {
   color: 15px;
 }
 
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: rgba(2, 2, 2, 0.837);
-  color: #ffffff;
+/***** HEADER *****/
+
+.logo-header{
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin-left: 80px;
+  margin-right: 20px;
+}
+
+.nav-profile-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.nav-phrase{
+  padding-top: 22px;
+  padding-left: 10px;
+}
+
+.navbar-nav{
+  padding-left: 830px;
 }
 
 
-/* SIGN IN */
 
-.signin {
+/***** SIGN IN *****/
+
+#signin-header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signin-name {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,15 +62,103 @@ body {
 
 .signin-bottom {
   margin-top: 15px;
-  font-size: 15px;
+  font-size: 16px;
   align-content: center;
 }
 
-/* SIGN UP*/
+/***** SIGN UP *****/
 
 #signup {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 16px;
+}
+
+
+/***** PROFILE ******/
+
+.user-info{
+  font-size: 16px;
+  margin-top: 50px;
+}
+
+.group-info {
+  margin-top: 50px;
+}
+
+.user-avatar{
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.my-groups-image{
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 20px;
+  margin-left: 50px;
+  margin-bottom: 25px;
+}
+
+.my-groups {
+  margin-top: 20px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+/***** EDIT PROFILE ******/
+
+.edit-profile-btn {
+  margin-top: 20px;
+}
+
+
+/***** MOVIES PAGE ******/
+
+.movies-avatar{
+  margin-top: 50px;
+  margin-left: 150px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.group-title{
+  margin-left: 120px;
+ }
+
+.movies-list {
+  margin-top: 20px;
+  display:flex;
+  flex-flow:row wrap;
+  text-align: center;
+  padding-right: 10px;
+}
+
+.show-movies {
+  margin-top: 60px;
+}
+
+.new-movies-link {
+  margin-left: 10px;
+}
+
+.movie-image{
+  width: 110px;
+  height: 130px;
+  object-fit: cover;
+  display: flex;
+  flex-flow:row wrap;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 70px;
+}
+
+.movie-title{
+  text-align: left;
+  text-justify: auto;
 }

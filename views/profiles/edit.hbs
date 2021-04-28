@@ -1,25 +1,29 @@
-<main id='editProfile'>
-  <header>
-    <img src="{{user.avatar}}" alt="user-avatar">
-  </header>
-
-  <section>
-    <h1>Edit your profile</h1>
-
-    {{#if msg}}
-    <div>{{msg}}</div>
-    {{/if}}
-
-    <form action="/profile/update" method="POST" enctype="multipart/form-data">
-      <input name="avatar" type="file" accept="image/png image/jpg image/jpeg">
-
-      <label for="username">Username:</label>
-      <input name="username" type="text" placeholder="Edit username" value="{{ user.username }}" />
-
-      <label for="quote">Some words about you:</label>
-      <input name="quote" type="text" placeholder="Edit quote" value="{{ user.quote }}" />
-
-      <button type="submit">Update Profile</button>
-    </form>
+<main id='edit-profile'>
+  <section class>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-5 offset-md-2">
+          <div class="user-info">
+            <img src="{{user.avatar}}" class="user-avatar" alt="user-avatar">
+            <h3>Edit your profile</h3>
+            {{#if msg}}
+            <div>{{msg}}</div>
+            {{/if}}
+            <form action="/profile/update" method="POST" enctype="multipart/form-data">
+              <input name="avatar" class="form-label" type="file" accept="image/png image/jpg image/jpeg">
+              <br>
+              <label for="username">Username:</label>
+              <input name="username" class="form-control form-control-lg" type="text" placeholder="Edit username"
+                value="{{ user.username }}" />
+              <label for="quote">Some words about you:</label>
+              <textarea name="quote" class="form-control" type="text" placeholder="Edit quote" value="{{ user.quote }}"
+                rows="5"></textarea>
+              <button type="submit" class="btn btn-secondary edit-profile-btn">Update Profile</button>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-5"></div>
+      </div>
+    </div>
   </section>
 </main>
