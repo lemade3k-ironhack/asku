@@ -45,6 +45,12 @@
    </nav>
    {{/if}}
 
+   {{#if messages.warning}}
+   <div class="alert alert-warning w-25 mx-auto" role="alert">
+      <span>{{messages.warning}}</span>
+   </div>
+   {{/if}}
+
    {{{body}}}
 
    <script src="/js/script.js"></script>

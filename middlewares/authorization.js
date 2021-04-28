@@ -14,6 +14,7 @@ const authorize = (req, res, next) => {
       })
       .catch((err) => next(err));
   } else {
+    req.flash("warning", "You are not logged in.")
     res.redirect("/");
   }
 };
@@ -27,6 +28,7 @@ const authMember = (req, res, next) => {
       if (!!user.groups.find((group) => group == groupId)) {
         next();
       } else {
+        req.flash("warning", "You don't have access to this group.")
         res.redirect("/profile");
       }
     })
@@ -42,6 +44,7 @@ const authGroup = (req, res, next) => {
     if (!!group.movies.find((movie) => movie == movieId)) {
       next();
     } else {
+      req.flash("warning", "You don't have access to this movie.")
       res.redirect("/groups/" + groupId);
     }
   })
