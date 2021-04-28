@@ -162,3 +162,18 @@ h1 {
   text-align: left;
   text-justify: auto;
 }
+
+
+
+/***** EDIT MOVIES PAGE ******/
+
+.edit-movies-avatar{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 70px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
