@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User.model");
+const Group = require("../models/Group.model")
 
 // require middlewares
 const authorize = require("../middlewares/authorization").authorize;
@@ -37,7 +38,27 @@ router.get("/profile", authorize, (req, res, next) => {
 
   User.findById( user._id )
     .populate("groups")
-    .then((user) => res.render("profiles/show.hbs", { user }))
+    .then((resUser) => {
+      // get all users from groups the currentUser is a member of
+      const allUsers = resUser.groups.map(group => group.users).flat();
+      const uniqueUsers = allUsers.filter((user, i) => allUsers.indexOf(user) === i);
+
+      // we don't want ourself in the friendslist
+      let withoutSelf = uniqueUsers.filter(user => {
+        return user != resUser.id
+      })
+
+      // query users for each id on the list (get only username and avatar)
+      const friends = withoutSelf.map(user => {
+        return User.findById(user).select('username avatar')
+      })
+
+      // get all friends and render page
+      Promise.all(friends)
+        .then(result => {
+          res.render("profiles/show.hbs", { user: resUser, friends: result })
+        })
+    })
     .catch((err) => next(err));
 });
 

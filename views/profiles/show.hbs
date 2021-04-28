@@ -1,44 +1,52 @@
-<main id='profile'>
-  <section class>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3 offset-md-2">
-          <div class="user-info">
-            <img src="{{user.avatar}}" class="user-avatar" alt="user-avatar">
-            <h3 class="accordion accordion-flush">{{user.username}}</h3>
-            <p class="accordion accordion-flush">{{user.quote}}</p>
-          </div>
-        </div>
-        <div class="col-md-7"></div>
-      </div>
-      <div class="row">
-        <div class="col-md-4 offset-md-2">
-          <a href="/profile/edit" class="btn btn-secondary">Edit Profile</a>
-          <a href="/groups/new" class="btn btn-warning">Create a group</a>
-        </div>
-        <div class="col-md-6"></div>
-      </div>
-      <div class="row">
-        <div class="col-md-4 offset-md-2">
-          <div class="group-info">
-            {{#if user.groups}}
-            <h4>My Groups:</h4>
-            {{/if}}
-          </div>
-        </div>
-        <div class="col-md-6"></div>
-      </div>
-      <div class="row">
-        <div class="col-md-10 offset-md-1">
-          <div class="my-groups">
-            {{#each user.groups}}
-            <a href="/groups/{{this._id}}">
-              <img src="{{this.image}}" class="my-groups-image" alt="group-image">
-            </a>
-            {{/each}}
-          </div>
-        </div>
+<main id='profile' class="container-fluid">
+  <section class="row">
+    <div class="col-md-3 offset-md-2">
+      <div class="user-info">
+        <img src="{{user.avatar}}" class="user-avatar" alt="user-avatar">
+        <h3 class="accordion accordion-flush">{{user.username}}</h3>
+        <p class="accordion accordion-flush">{{user.quote}}</p>
       </div>
     </div>
+    <div class="col-md-7"></div>
   </section>
+  
+  <section class="row">
+    <div class="col-md-4 offset-md-2">
+      <a href="/profile/edit" class="btn btn-secondary">Edit Profile</a>
+      <a href="/groups/new" class="btn btn-warning">Create a group</a>
+    </div>
+    <div class="col-md-6"></div>
+  </section>
+
+  {{#if friends}}
+  <section class="row">
+    <div class="col-md-4 offset-md-2">
+      <div class="group-info">
+        <h4>My Friends:</h4>
+        {{#each friends}}
+        <img src="{{this.avatar}}" class="my-friends-image" alt="friend-image">
+        <p>{{this.name}}</p>
+        {{/each}}
+      </div>
+    </div>
+    <div class="col-md-6"></div>
+  </section>
+  {{/if}}
+
+  {{#if user.groups}}
+  <section class="row">
+    <div class="col-md-4 offset-md-2">
+      <div class="group-info">
+        <h4>My Groups:</h4>
+        {{#each user.groups}}
+        <a href="/groups/{{this._id}}">
+          <img src="{{this.image}}" class="my-groups-image" alt="group-image">
+          <p>{{this.name}}</p>
+        </a>
+        {{/each}}
+      </div>
+    </div>
+    <div class="col-md-6"></div>
+  </section>
+  {{/if}}
 </main>
