@@ -41,7 +41,7 @@ h1 {
 }
 
 .navbar-nav{
-  padding-left: 830px;
+  padding-left: 1110px;
 }
 
 
@@ -196,4 +196,29 @@ h1 {
   height: 150px;
   object-fit: cover;
   border-radius: 50%;
+}
+
+
+
+
+
+
+/**** NEW GROUP PAGE ****/
+
+#newGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+}
+
+.text-form{
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.header-new-group{
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: center;
 }
