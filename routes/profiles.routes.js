@@ -2,7 +2,7 @@ const router = require("express").Router();
 const User = require("../models/User.model");
 
 // require middlewares
-const authorize = require("../middlewares/authorization");;
+const authorize = require("../middlewares/authorization").authorize;
 const validate = require("../middlewares/validations/profiles");
 const uploader = require("../middlewares/cloudinary.config");
 

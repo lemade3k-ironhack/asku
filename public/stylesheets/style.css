@@ -168,8 +168,6 @@ h1 {
   text-justify: auto;
 }
 
-
-
 /**** NEW MOVIE PAGE ****/
 
 #newMovie {
@@ -188,4 +186,14 @@ h1 {
 .text-form{
   text-align: left;
   margin-bottom: 5px;
+}
+
+.edit-movies-avatar{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 70px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
 }

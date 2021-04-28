@@ -6,7 +6,7 @@
           <img class="movies-avatar" src="{{group.image}}" alt="group-image">
           <h3 class="group-title"> {{group.groupName}}</h3>
           <p class="group-title"> {{group.description}}</p>
-          <p ><a href="/groups/{{group._id}}/edit" class="btn btn-secondary">Edit Group</a></p>
+          <p><a href="/groups/{{group._id}}/edit" class="btn btn-secondary">Edit Group</a></p>
           <a href="/groups/{{group._id}}/movies/" class="btn btn-warning">Show all movies</a>
           <a href="/groups/{{group._id}}/movies/new" class="btn btn-warning new-movies-link">
             Add new movie</a>
@@ -14,15 +14,22 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-5">
-          <!--  **adding members**
-          <div class="group-members">
-            {{#each group.members}}
-            <a href="/groups/{{this.username}}">
-              <img src="{{this.avatar}}" class="group-members" alt="group-image">
+          <section>
+            {{#each members}}
+            <img src="{{this.avatar}}" alt="{{this.username}}-avatar">
+            {{/each}}
+          </section>
+
+          <section>
+            <a href="/groups/{{group._id}}/movies/new">Add new movie</a>
+
+            {{#each movies}}
+            <a href="/groups/{{../group._id}}/movies/{{this._id}}">
+              <img src="{{this.image}}" alt="{{this.title}}-preview-image">
+              {{this.title}}
             </a>
             {{/each}}
-          </div>
-          -->
+          </section>
         </div>
       </div>
       <div class="row">
@@ -38,5 +45,3 @@
     </div>
   </section>
 </main>
-
-
