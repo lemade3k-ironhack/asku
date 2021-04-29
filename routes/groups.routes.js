@@ -22,7 +22,7 @@ router.post("/groups/create", authorize, uploader.single("image"), validate, asy
   const { groupName, members, description } = req.body;
   const image = (req.file != undefined) ? req.file.path : "/images/logoDummy.png";
   // wait for helper functions promises to finish before returning something
-  const groupMembers = await updateMembers(members, user)
+  const groupMembers = members ? await updateMembers(members, user) : [ user._id ]
 
   Group.findOne({ groupName }).then((group) => {
     // if groupname already exists render form with message 
@@ -73,7 +73,7 @@ router.post(
   const { groupName, members, description } = req.body;
   const image = (req.file != undefined) ? req.file.path : req.body.oldImg;
   // wait for helper functions promises to finish before returning something
-  const groupMembers = await updateMembers(members, user)
+  const groupMembers = members ? await updateMembers(members, user) : [ user._id ]
 
   Group.findByIdAndUpdate(groupId, { groupName, image, description, users: groupMembers })
     .then(() => { res.redirect("/groups/" + groupId)})
