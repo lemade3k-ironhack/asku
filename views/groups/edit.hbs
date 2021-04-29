@@ -8,8 +8,10 @@
     {{/if}}
 
     <form action="/groups/{{group._id}}/update" method="POST" enctype="multipart/form-data">
+      <!-- send old image as hidden field due to rerendering -->
+      <input name="oldImg" type="hidden" value="{{ group.image }}">
+
       <img class="edit-group-avatar" src="{{group.image}}" alt="group-image">
-      <input class="form-control text-form"name="oldImg" type="hidden" value="{{ group.image }}">
       <input class="form-control text-form" name="image" type="file" accept="image/png image/jpg image/jpeg">
 
       <label for="groupName">Group Name:</label>
