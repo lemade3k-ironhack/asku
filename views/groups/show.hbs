@@ -16,7 +16,7 @@
         <img class="group-image mb-3" src="{{group.image}}" alt="group-image">
         <h3 class="group-title">{{group.groupName}}</h3>
         <p class="group-title">{{group.description}}</p>
-        <a href="/groups/{{group._id}}/edit" class="btn btn-secondary">Edit Group</a>
+        <a href="/groups/{{group._id}}/edit" class="btn btn-secondary">Edit your Group</a>
         <a href="/groups/{{group._id}}/movies/new" class="btn btn-warning new-movies-link">
           Add new movie</a>
       </div>
@@ -51,12 +51,6 @@
       </div>
     </div>
 
-    <div class="row mt-3">
-      <div class="col-md-10 offset-md-2">
-        {{#if movies}}
-        <a href="/groups/{{group._id}}/movies/" class="btn btn-sm btn-warning">Show all movies</a>
-        {{/if}}
-      </div>
     </div>
   </div>
 </main>
