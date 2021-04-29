@@ -12,7 +12,7 @@ const groupSchema = new Schema(
       default: "/images/logoDummy.png",
     },
     description: String,
-    members: [
+    users: [
       {
         type: Schema.Types.ObjectId,
         ref: "User",

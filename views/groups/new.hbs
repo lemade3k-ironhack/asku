@@ -1,24 +1,41 @@
 <main id='newGroup'>
-
   <section>
-    <h1>Create a new group!</h1>
+    <h2 class="header-new-group">Create a new group!</h1>
 
-    {{#if msg}}
-    <div>{{msg}}</div>
-    {{/if}}
+      {{#if msg}}
+      <div>{{msg}}</div>
+      {{/if}}
 
-    <form action="/groups/create" method="POST">
-      <label for="image"></label>
-      <input type="url" placeholder="place a new URL for your avatar" name="avatar" value="{{ group.image }}">
+      <form action="/groups/create" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+          <div class="input-group">
+            <div class="custom-file">
+              <input  name="image" type="file" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01" accept="image/png image/jpg image/jpeg">
+              <label class="custom-file-label" for="inputGroupFile01">Choose group image</label>
+            </div>
+          </div>
+        </div>
 
-      <label for="groupName">Group Name:</label>
-      <input type="text" placeholder="groupName" required name="groupName" value="{{ group.groupName }}" />
+        <div class="mb-3">
+          <label for="groupName">Group Name:</label>
+          <input class="form-control text-form" name="groupName" type="text" placeholder="Group name"
+            value="{{ group.groupName }}" />
+        </div>
 
-      <label for="description">What's your group about?</label>
-      <input type="text" placeholder="Add a description of your group!" name="description"
-        value="{{group.description}}">
+        <div class="mb-3">
+          <label for="description">What's your group about?</label>
+          <textarea class="form-control text-form" name="description" type="text"
+            placeholder="Add a description of your group!" value="{{group.description}}" rows="3"></textarea>
+        </div>
 
-      <button type="submit">Create</button>
-    </form>
+        <div class="mb-3">
+            <label for="members">Add members:</label>
+            <textarea name="members" class="form-control" placeholder="Alice, Bob, Ada"
+              id="floatingTextarea">{{ group.members }}</textarea>
+        </div>
+
+        <button class="btn btn-warning edit-profile-btn" type="submit">Create</button>
+      </form>
   </section>
 </main>

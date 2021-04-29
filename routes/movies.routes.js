@@ -2,36 +2,41 @@ const router = require("express").Router();
 const Group = require("../models/Group.model");
 const Movie = require("../models/Movie.model");
 
-// middleware for authorization
-const authorize = (req, res, next) => {
-  req.session.currentUser ? next() : res.redirect("/");
-};
+const { authorize, authMember, authGroup } = require("../middlewares/authorization");
+const validate = require("../middlewares/validations/movies");
+const uploader = require("../middlewares/cloudinary.config");
 
-/* GET groups/:groupId/movies/new */
-router.get("/groups/:groupId/movies/new", authorize, (req, res) => {
-  const groupId = req.params.groupId;
-
-  res.render("movies/new.hbs", { groupId });
-});
-
-/* Custom Middleware: Validate user input */
-const validateEmpty = (req, res, next) => {
-  const movie = req.body;
-
-  if (!movie.title) {
-    res.render("movies/new.hbs", { movie, msg: "Title must be filled out!" });
-  } else {
-    next();
-  }
-};
-
-/* POST groups/:groupId/movies/create */
-router.post("/groups/:groupId/movies/create", authorize, validateEmpty, (req, res) => {
-    const { title, plot, genre, director, image, trailer } = req.body;
+/* GET groups/:groupId/movies */
+router.get("/groups/:groupId/movies", authorize, authMember, (req, res, next) => {
     const groupId = req.params.groupId;
 
-    Movie.create({ 
-      title, plot, genre, director, image, trailer, _group: groupId,
+    Group.findById(groupId)
+      .populate("movies")
+      .then((group) =>
+        res.render("movies/index.hbs", { group, movies: group.movies })
+      )
+      .catch((err) => next(err));
+  }
+);
+
+/* GET groups/:groupId/movies/new */
+router.get("/groups/:groupId/movies/new", authorize, authMember, (req, res) => {
+  res.render("movies/new.hbs", { groupId: req.params.groupId });
+});
+
+/* POST groups/:groupId/movies/create */
+router.post(
+  "/groups/:groupId/movies/create",
+  authorize, authMember,
+  uploader.single("image"),
+  validate,
+  (req, res, next) => {
+    const groupId = req.params.groupId;
+    const { title, year, plot, genre, director, cast, trailer } = req.body;
+    const image = (req.file != undefined) ? req.file.path : "/images/movieDummy.png";
+
+    Movie.create({
+      title, year, plot, genre, director, cast, image, trailer, _group: groupId,
     })
       .then((movie) => {
         Group.findByIdAndUpdate(groupId, {
@@ -43,7 +48,10 @@ router.post("/groups/:groupId/movies/create", authorize, validateEmpty, (req, re
 );
 
 /* GET groups/:groupId/movies/:movieId/edit */
-router.get("/groups/:groupId/movies/:movieId/edit", authorize, (req, res, next) => {
+router.get(
+  "/groups/:groupId/movies/:movieId/edit", 
+  authorize, authMember, authGroup, 
+  (req, res, next) => {
     const movieId = req.params.movieId;
     const groupId = req.params.groupId;
 
@@ -53,25 +61,20 @@ router.get("/groups/:groupId/movies/:movieId/edit", authorize, (req, res, next) 
   }
 );
 
-/* Custom Middleware: Validate user input */
-const validateEmptyUpdate = (req, res, next) => {
-  const movie = req.body;
-
-  if (!movie.title) {
-    res.render("movies/edit.hbs", { movie, msg: "Title must be filled out" });
-  } else {
-    next();
-  }
-};
-
 /* POST /groups/:groupId/movies/:movieId/update */
-router.post("/groups/:groupId/movies/:movieId/update", authorize, validateEmptyUpdate, (req, res, next) => {
+router.post(
+  "/groups/:groupId/movies/:movieId/update",
+  authorize, authMember, authGroup,
+  uploader.single("image"),
+  validate,
+  (req, res, next) => {
     const movieId = req.params.movieId;
     const groupId = req.params.groupId;
-    const { title, plot, genre, director, image, trailer } = req.body;
+    const { title, year, plot, genre, director, cast, trailer } = req.body;
+    const image = (req.file != undefined) ? req.file.path : req.body.oldImg;
 
     Movie.findByIdAndUpdate(movieId, {
-      title, plot, genre, director, image, trailer,
+      title, year, plot, genre, director, cast, image, trailer,
     })
       .then(() => res.redirect(`/groups/${groupId}/movies/${movieId}`))
       .catch((err) => next(err));
@@ -79,26 +82,18 @@ router.post("/groups/:groupId/movies/:movieId/update", authorize, validateEmptyU
 );
 
 /* GET groups/:groupId/movies/:movieId */
-router.get("/groups/:groupId/movies/:movieId", authorize, (req, res, next) => {
-  const movieId = req.params.movieId;
-  const groupId = req.params.groupId;
+router.get(
+  "/groups/:groupId/movies/:movieId", 
+  authorize, authMember, authGroup, 
+  (req, res, next) => {
+    const movieId = req.params.movieId;
+    const groupId = req.params.groupId;
 
-  Movie.findById(movieId)
-    .populate("group")
-    .then((movie) => res.render("movies/show.hbs", { movie, groupId }))
-    .catch((err) => next(err));
-});
-
-/* GET groups/:groupId/movies */
-router.get("/groups/:groupId/movies", authorize, (req, res, next) => {
-  const groupId = req.params.groupId;
-
-  Group.findById(groupId)
-    .populate("movies")
-    .then((group) =>
-      res.render("movies/index.hbs", { group, movies: group.movies })
-    )
-    .catch((err) => next(err));
-});
+    Movie.findById(movieId)
+      .populate("group")
+      .then((movie) => res.render("movies/show.hbs", { movie, groupId }))
+      .catch((err) => next(err));
+  }
+);
 
 module.exports = router;

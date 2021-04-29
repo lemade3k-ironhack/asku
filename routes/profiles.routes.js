@@ -1,72 +1,64 @@
 const router = require("express").Router();
-
-const multer = require("multer");
-const path = require("path");
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../", "public", "uploads", "users", "avatars"))
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname))
-  }
-});
-
 const User = require("../models/User.model");
-require("../models/Group.model");
+const Group = require("../models/Group.model")
 
-// middleware for authorization
-const authorize = (req, res, next) => {
-  req.session.currentUser ? next() : res.redirect("/");
-};
+// require middlewares
+const authorize = require("../middlewares/authorization").authorize;
+const validate = require("../middlewares/validations/profiles");
+const uploader = require("../middlewares/cloudinary.config");
 
 /* GET/ edit route  */
 router.get("/profile/edit", authorize, (req, res, next) => {
-  const user = req.session.currentUser;
-  
-  User.findOne({ username: user.username })
-    .then((user) => res.render("profiles/edit.hbs", { user }))
+  const { _id, username, quote, avatar } = req.session.currentUser;
+
+  User.findById( _id )
+    .then(() => res.render("profiles/edit.hbs", { username, quote, avatar }))
     .catch((err) => next(err));
-});
-
-/* middleware user input validation function */
-const validateInput = (req, res, next) => {
-  const { username, quote } = req.body;
-
-  if (!username) {
-    res.render("profiles/edit.hbs", { username, quote, msg: "Please add an username!" });
-  } else {
-    next();
-  }
-};
-/* Middleware to validate uploads */
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1000000,
-  }
 });
 
 /* POST/ update  */
-router.post("/profile/update", upload.single("avatar"), validateInput, (req, res, next) => {
-  const user = req.session.currentUser
-  const { username, quote } = req.body
-  const avatar = (req.file != undefined) ? req.file.path.split("public/")[1] : user.avatar
+router.post("/profile/update", authorize, uploader.single("avatar"), validate,
+  (req, res, next) => {
+    const user = req.session.currentUser;
+    const { username, quote } = req.body;
+    const avatar = (req.file != undefined) ? req.file.path : user.avatar;
 
-  User.findOneAndUpdate({ username: user.username }, { username, quote, avatar }, { new: true })
-    .then((user) => {
-      req.session.currentUser = user
-      res.redirect("/profile")
-    })
-    .catch((err) => next(err));
-});
+    User.findByIdAndUpdate(user._id, { username, quote, avatar }, { new: true })
+      .then((user) => {
+        req.session.currentUser = user;
+        res.redirect("/profile");
+      })
+      .catch((err) => next(err));
+  }
+);
 
 /* GET /profile */
 router.get("/profile", authorize, (req, res, next) => {
   const user = req.session.currentUser;
 
-  User.findOne({ username: user.username })
+  User.findById( user._id )
     .populate("groups")
-    .then((user) => res.render("profiles/show.hbs", { user }))
+    .then((resUser) => {
+      // get all users from groups the currentUser is a member of
+      const allUsers = resUser.groups.map(group => group.users).flat();
+      const uniqueUsers = allUsers.filter((user, i) => allUsers.indexOf(user) === i);
+
+      // we don't want ourself in the friendslist
+      let withoutSelf = uniqueUsers.filter(user => {
+        return user != resUser.id
+      })
+
+      // query users for each id on the list (get only username and avatar)
+      const friends = withoutSelf.map(user => {
+        return User.findById(user).select('username avatar')
+      })
+
+      // get all friends and render page
+      Promise.all(friends)
+        .then(result => {
+          res.render("profiles/show.hbs", { user: resUser, friends: result })
+        })
+    })
     .catch((err) => next(err));
 });
 

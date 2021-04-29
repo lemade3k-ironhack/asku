@@ -1,24 +1,45 @@
 <main id='editGroup'>
-
   <section>
-    <h1>Edit your group!</h1>
+    <h1 class="edit-group-title">Edit your group!</h1>
+    <img class="edit-group-avatar" src="{{group.image}}" alt="group-image">
 
     {{#if msg}}
     <div>{{msg}}</div>
     {{/if}}
 
-    <form action="/groups/{{group._id}}/update" method="POST">
-      <label for="image"></label>
-      <input type="text" placeholder="place a new URL for your avatar" name="image" value="{{ group.image }}">
+    <form action="/groups/{{group._id}}/update" method="POST" enctype="multipart/form-data">
+      <!-- send old image as hidden field due to rerendering -->
+      <input name="oldImg" type="hidden" value="{{ group.image }}">
 
-      <label for="groupName">Group Name:</label>
-      <input type="text" placeholder="groupName" required name="groupName" value="{{ group.groupName }}" />
+      <div class="mb-3">
+        <div class="input-group">
+          <div class="custom-file">
+            <input name="image" type="file" class="custom-file-input" id="inputGroupFile01"
+              aria-describedby="inputGroupFileAddon01" accept="image/png image/jpg image/jpeg">
+            <label class="custom-file-label" for="inputGroupFile01">Choose group image</label>
+          </div>
+        </div>
+      </div>
 
-      <label for="description">What's your group about?</label>
-      <input type="text" placeholder="Add a description of your group!" name="description"
-        value="{{group.description}}">
+      <div class="mb-3">
+        <label for="groupName">Group Name:</label>
+        <input class="form-control text-form" type="text" placeholder="groupName" name="groupName"
+          value="{{ group.groupName }}" />
+      </div>
 
-      <button type="submit">Update</button>
+      <div class="mb-3">
+        <label for="description">What's your group about?</label>
+        <textarea class="form-control text-form" name="description" type="text"
+          placeholder="Add a description of your group!" rows="3">{{group.description}}</textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="members">Members:</label>
+        <textarea  name="members"  class="form-control" placeholder="Alice, Bob, Ada"
+          id="floatingTextarea">{{ group.members }}</textarea>
+      </div>
+
+      <button class="btn btn-warning signin-bottom" type="submit">Update</button>
     </form>
   </section>
 </main>

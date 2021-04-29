@@ -1,18 +1,27 @@
-<main id='moviesIndex'>
-  <header>
-    <img src="{{group.image}}" alt="group-image">
-    <span>{{group.groupName}}</span>
-    <h1>All Movies</h1>
-  </header>
-
-  <section>
-    <a href="/groups/{{group._id}}/movies/new">Add new movie</a>
-
-    {{#each movies}}
-    <a href="/groups/{{../group._id}}/movies/{{this._id}}">
-      <img src="{{this.image}}" alt="{{this.title}}-image">
-      <span>{{this.title}}</span>
-    </a>
-    {{/each}}
-  </section>
+<main id='index-moviesIndex'>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+        <img class="index-movies-avatar" src="{{group.image}}" alt="group-image">
+      </div>
+      <div class="col-md-6">
+        <h1 class="index-movie-title">All Movies in {{group.groupName}}</h1>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-11 offset-md-1">
+        <a href="/groups/{{group._id}}/movies/new" class="btn btn-warning edit-profile-btn">
+          Add new movie</a>
+      </div>
+      <div class="col-md-11 offset-md-1 index-movies-list">
+        {{#each movies}}
+        <a href="/groups/{{../group._id}}/movies/{{this._id}}">
+          <img class="index-movies" src="{{this.image}}" alt="{{this.title}}-image">
+          <p class="index-m-title">{{this.title}} ({{this.year}})</p>
+        </a>
+        {{/each}}
+      </div>
+    </div>
+  </div>
 </main>

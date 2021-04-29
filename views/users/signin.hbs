@@ -1,27 +1,29 @@
-
-<main id='signin'>
-  <header>
+<main id='signin-header'>
+  <header class="signin">
     <img src="/images/logoDummy.png" alt="logo">
   </header>
 
-  <section>
-    <h1>Sign In </h1>
+  <section class="signin-name">
 
+    <h2>Sign In </h2>
     {{#if msg}}
     <div>{{msg}}</div>
     {{/if}}
 
     <form action="/signin" method="POST">
       <label for="username">Username:</label> <br>
-      <input name="username" type="text" placeholder="Enter a username" value="{{username}}">
+      <input name="username" class="form-control form-control-lg" type="text" placeholder="Enter a username"
+        value="{{username}}">
       <br>
       <label for="password">Password:</label><br>
-      <input name="password" type="password" placeholder="Enter a password" value="{{password}}">
+      <input name="password" class="form-control form-control-lg" type="password" placeholder="Enter a password"
+        value="{{password}}">
       <br>
-      <button type="submit">Sing In</button>
+      <button type="submit" class="btn btn-warning form-control">sign in</button>
     </form>
 
-  <p> New to Vider? <br> 
-  <a href="/signup">Sign up now</a></p>  
+    <p class="signin-bottom"> New to Vider? <br>
+      <a href="/signup" type="link" class="btn btn-warning">sign up now</a>
+    </p>
   </section>
 </main>

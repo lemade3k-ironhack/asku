@@ -1,20 +1,25 @@
-<section>
-  <h1>{{movie.title}}</h1>
-  <a href="/groups/{{groupId}}/movies/{{movie._id}}/edit">Edit movie</a>
-</section>
+<div class="movie-container">
+  <div>
+    <h1 class="movie-show-title">{{movie.title}} ({{movie.year}})</h1>
+  </div>
+  <div>
+    <a class="btn btn-secondary edit-btn-movie" href="/groups/{{groupId}}/movies/{{movie._id}}/edit">Edit movie</a>
+  </div>
+</div>
 
-<section>
+<section class="movies-show">
   <!-- ToDo: Refactor. Use uploaded videos because of Cross-Origin Read Blocking (CORB) -->
   <video width="500" controls>
     <source src="{{movie.trailer}}" type="video/mp4">
   </video>
-</section>
+  
+  <div class="movie-container">
+    <p class="lead movie-plot"> {{movie.plot}} </p>
+  </div>
 
-<section>
-  <p>{{movie.plot}}</p>
-</section>
-
-<section>
-  <p>{{movie.director}}</p>
-  <p>{{movie.genre}}</p>
+  <section>
+    <p class="lead">Director: {{movie.director}}</p>
+    <p class="lead">Cast: {{movie.cast}}</p>
+    <p class="lead"> Genre: {{movie.genre}}</p>
+  </section>
 </section>
