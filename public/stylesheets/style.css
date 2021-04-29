@@ -250,16 +250,14 @@ h1 {
 
 /* MOVIE - video page */
 
-.movies-show{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+#movies-show{
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .movie-container{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .movie-show-title {
@@ -276,6 +274,23 @@ h1 {
   display: inline;
   float: right;
 }
+
+.trailer video {
+  width: 600px;
+}
+
+@media (min-width: 992px) { 
+  .trailer video {
+    width: 800px;
+  }
+ }
+
+@media (min-width: 1200px) { 
+  .trailer video {
+    width: 1000px;
+  }
+ }
+
 
 .movie-plot {
   width:auto;
