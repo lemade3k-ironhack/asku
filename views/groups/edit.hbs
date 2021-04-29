@@ -1,28 +1,28 @@
 <main id='editGroup'>
 
   <section>
-    <h1>Edit your group!</h1>
+    <h1 class="edit-group-title">Edit your group!</h1>
 
     {{#if msg}}
     <div>{{msg}}</div>
     {{/if}}
 
     <form action="/groups/{{group._id}}/update" method="POST" enctype="multipart/form-data">
-      <img src="{{group.image}}" alt="group-image">
-      <input name="oldImg" type="hidden" value="{{ group.image }}">
-      <input name="image" type="file" accept="image/png image/jpg image/jpeg">
+      <img class="edit-group-avatar" src="{{group.image}}" alt="group-image">
+      <input class="form-control text-form"name="oldImg" type="hidden" value="{{ group.image }}">
+      <input class="form-control text-form" name="image" type="file" accept="image/png image/jpg image/jpeg">
 
       <label for="groupName">Group Name:</label>
-      <input type="text" placeholder="groupName" name="groupName" value="{{ group.groupName }}" />
+      <input class="form-control text-form" type="text" placeholder="groupName" name="groupName" value="{{ group.groupName }}" />
 
       <label for="description">What's your group about?</label>
-      <input type="text" placeholder="Add a description of your group!" name="description"
+      <input class="form-control text-form" type="text" placeholder="Add a description of your group!" name="description"
         value="{{group.description}}">
 
       <label for="members">Members:</label>
-      <input name="members" type="text" placeholder="Alice, Bob, Ada" value="{{ group.members }}">
+      <input class="form-control text-form" name="members" type="text" placeholder="Alice, Bob, Ada" value="{{ group.members }}">
 
-      <button type="submit">Update</button>
+      <button class="btn btn-warning signin-bottom" type="submit">Update</button>
     </form>
   </section>
 </main>
