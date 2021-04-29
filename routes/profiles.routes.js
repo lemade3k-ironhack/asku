@@ -9,10 +9,10 @@ const uploader = require("../middlewares/cloudinary.config");
 
 /* GET/ edit route  */
 router.get("/profile/edit", authorize, (req, res, next) => {
-  const user = req.session.currentUser;
+  const { _id, username, quote, avatar } = req.session.currentUser;
 
-  User.findById( user._id )
-    .then((user) => res.render("profiles/edit.hbs", { user }))
+  User.findById( _id )
+    .then(() => res.render("profiles/edit.hbs", { username, quote, avatar }))
     .catch((err) => next(err));
 });
 
