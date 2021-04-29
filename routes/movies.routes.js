@@ -32,11 +32,11 @@ router.post(
   validate,
   (req, res, next) => {
     const groupId = req.params.groupId;
-    const { title, year, plot, genre, director, cast, image, trailer } = req.body;
-    const newImg = req.file != undefined ? req.file.path : image;
+    const { title, year, plot, genre, director, cast, trailer } = req.body;
+    const image = (req.file != undefined) ? req.file.path : "/images/movieDummy.png";
 
     Movie.create({
-      title, year, plot, genre, director, cast, image: newImg, trailer, _group: groupId,
+      title, year, plot, genre, director, cast, image, trailer, _group: groupId,
     })
       .then((movie) => {
         Group.findByIdAndUpdate(groupId, {
@@ -70,11 +70,11 @@ router.post(
   (req, res, next) => {
     const movieId = req.params.movieId;
     const groupId = req.params.groupId;
-    const { title, year, plot, genre, director, cast, image, trailer } = req.body;
-    const newImg = req.file != undefined ? req.file.path : image;
+    const { title, year, plot, genre, director, cast, trailer } = req.body;
+    const image = (req.file != undefined) ? req.file.path : req.body.oldImg;
 
     Movie.findByIdAndUpdate(movieId, {
-      title, year, plot, genre, director, cast, image: newImg, trailer,
+      title, year, plot, genre, director, cast, image, trailer,
     })
       .then(() => res.redirect(`/groups/${groupId}/movies/${movieId}`))
       .catch((err) => next(err));

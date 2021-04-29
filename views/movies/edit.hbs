@@ -7,6 +7,8 @@
     {{/if}}
 
     <form action="/groups/{{groupId}}/movies/{{movie._id}}/update" method="POST" enctype="multipart/form-data">
+      <!-- send old image as hidden field due to rerendering -->
+      <input name="oldImg" type="hidden" value="{{ movie.image }}">
 
       <img class="edit-movies-avatar" src="{{movie.image}}" alt="movie-preview-image">
       <input class="form-control form-control-sm text-form" name="image" type="file"
