@@ -64,7 +64,10 @@
           value="{{ movie.genre }}" />
       </div>
 
-      <button class="btn btn-warning signin-bottom" type="submit">Update</button>
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-warning edit-profile-btn" type="submit">Update</button>
+        <a class="btn btn-outline-warning edit-profile-btn" href="/groups/{{groupId}}/movies/{{movie._id}}">Cancel</a>
+      </div>
     </form>
   </section>
 </main>

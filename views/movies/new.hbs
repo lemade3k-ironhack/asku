@@ -1,6 +1,6 @@
 <main id='newMovie'>
   <section>
-    <h2 class="new-movie-title">Add a movie</h2>
+    <h1 class="new-movie-title">Add a movie</h1>
 
     {{#if msg}}
     <div>{{msg}}</div>
@@ -59,7 +59,10 @@
           value="{{ movie.genre }}" />
       </div>
 
-      <button class="btn btn-warning signin-bottom" type="submit">Create</button>
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-warning edit-profile-btn" type="submit">Create</button>
+        <a class="btn btn-outline-warning edit-profile-btn" href="/groups/{{groupId}}">Cancel</a>
+      </div>
     </form>
   </section>
 </main>
