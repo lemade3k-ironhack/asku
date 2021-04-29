@@ -31,7 +31,7 @@
         {{#each movies}}
         <a class="movie-title" href="/groups/{{../group._id}}/movies/{{this._id}}">
           <img class="movie-image" src="{{this.image}}" alt="{{this.title}}-preview-image">
-          <p class="text-break">{{this.title}}</p>
+          <p class="text-break">{{this.title}} ({{this.year}})</p>
         </a>
         {{/each}}
       </div>
