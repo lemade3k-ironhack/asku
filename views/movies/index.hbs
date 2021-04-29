@@ -1,4 +1,4 @@
-<main id='index-moviesIndex'>
+<main>
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -13,7 +13,7 @@
     </div>
     <div class="row">
       <div class="col-md-3 offset-md-2">
-        <img class="index-movies-avatar d-block mb-3" src="{{group.image}}" alt="group-image">        
+        <img class="group-image mb-3" src="{{group.image}}" alt="group-image">
         <h3 class="group-title">{{group.groupName}}</h3>
         <p class="group-title">{{group.description}}</p>
         <a href="/groups/{{group._id}}/movies/new" class=" btn btn-warning edit-profile-btn">
@@ -27,9 +27,9 @@
     <div class="row mt-5">
       <div class="col-md-10 offset-md-2 index-movies-list">
         {{#each movies}}
-        <a href="/groups/{{../group._id}}/movies/{{this._id}}">
-          <img class="index-movies" src="{{this.image}}" alt="{{this.title}}-image">
-          <p class="index-m-title">{{this.title}} ({{this.year}})</p>
+        <a class="movie-title" href="/groups/{{../group._id}}/movies/{{this._id}}">
+          <img class="movie-image" src="{{this.image}}" alt="{{this.title}}-preview-image">
+          <p class="text-break">{{this.title}} ({{this.year}})</p>
         </a>
         {{/each}}
       </div>
