@@ -1,29 +1,28 @@
 <main id='group'>
-  <section>
-    <div class"container">
-      <div class="row">
-        <div class="col-md-4 offset-md-1 profile-info">
-          <img class="movies-avatar" src="{{group.image}}" alt="group-image">
-          <h3 class="group-title"> {{group.groupName}}</h3>
-          <p class="group-title"> {{group.description}}</p>
-          <p><a href="/groups/{{group._id}}/edit" class="btn btn-secondary">Edit Group</a></p>
-          <a href="/groups/{{group._id}}/movies/" class="btn btn-warning">Show all movies</a>
-          <a href="/groups/{{group._id}}/movies/new" class="btn btn-warning new-movies-link">
-            Add new movie</a>
-        </div>
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-5">
-          <p class="text-members">Members:</p>
-          {{#each members}}
-          <div class="member-container">
-            <div class="members-image">
-              <img src="{{this.avatar}}" class="members-image" alt="{{this.username}}-avatar">
-            </div>
-            <p class="members-name">{{this.username}}</p>
+  <!-- <section> -->
+  <div class"container">
+    <div class="row">
+      <div class="col-md-4 offset-md-1 profile-info">
+        <img class="movies-avatar" src="{{group.image}}" alt="group-image">
+        <h3 class="group-title"> {{group.groupName}}</h3>
+        <p class="group-title"> {{group.description}}</p>
+        <p><a href="/groups/{{group._id}}/edit" class="btn btn-secondary">Edit Group</a></p>
+        <a href="/groups/{{group._id}}/movies/" class="btn btn-warning">Show all movies</a>
+        <a href="/groups/{{group._id}}/movies/new" class="btn btn-warning new-movies-link">
+          Add new movie</a>
+      </div>
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-5">
+        <p class="text-members">Members:</p>
+        {{#each members}}
+        <div class="member-container">
+          <div class="members-image">
+            <img src="{{this.avatar}}" class="members-image" alt="{{this.username}}-avatar">
           </div>
-          {{/each}}
+          <p class="members-name">{{this.username}}</p>
         </div>
+        {{/each}}
       </div>
     </div>
     <div class="row">
@@ -36,6 +35,6 @@
         {{/each}}
       </div>
     </div>
-    </div>
-  </section>
+  </div>
+  <!--</section>-->
 </main>
