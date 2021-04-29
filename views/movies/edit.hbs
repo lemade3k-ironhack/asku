@@ -1,6 +1,7 @@
 <main id='newMovie'>
   <section>
     <h2 class="new-movie-title">Update movie</h2>
+    <img class="edit-movies-avatar" src="{{movie.image}}" alt="movie-preview-image">
 
     {{#if msg}}
     <div>{{msg}}</div>
@@ -10,37 +11,58 @@
       <!-- send old image as hidden field due to rerendering -->
       <input name="oldImg" type="hidden" value="{{ movie.image }}">
 
-      <img class="edit-movies-avatar" src="{{movie.image}}" alt="movie-preview-image">
-      <input class="form-control form-control-sm text-form" name="image" type="file"
-        accept="image/png image/jpg image/jpeg">
+      <div class="mb-3">
+        <div class="input-group">
+          <div class="custom-file">
+            <input name="image" type="file" class="custom-file-input" id="inputGroupFile01"
+              aria-describedby="inputGroupFileAddon01" accept="image/png image/jpg image/jpeg">
+            <label class="custom-file-label" for="inputGroupFile01">Update preview image</label>
+          </div>
+        </div>
+      </div>
 
-      <label for="title">Title:</label>
-      <input class="form-control text-form" name="title" type="text" placeholder="Add movies title"
-        value="{{ movie.title }}" />
+      <div class="mb-3">
+        <label for="title">Title:</label>
+        <input class="form-control text-form" name="title" type="text" placeholder="Add movies title"
+          value="{{ movie.title }}" />
+      </div>
 
-      <label for="trailer">Trailer:</label>
-      <input class="form-control text-form" name="trailer" type="url" placeholder="Add an URL for a trailer"
-        value="{{ movie.trailer }}">
+      <div class="mb-3">
+        <label for="year">Year:</label>
+        <input class="form-control text-form" name="year" type="number" min="1900" max="2025" step="1"
+          placeholder="Add a year" value="{{ movie.year }}" />
+      </div>
 
-      <label for="plot">Plot:</label>
-      <input class="form-control text-form" name="plot" type="text" placeholder="Add some info about the plot"
-        value="{{ movie.plot}}" />
+      <div class="mb-3">
+        <label for="director">Director:</label>
+        <input class="form-control text-form" name="director" type="text" placeholder="Add a director"
+          value="{{ movie.director }}" />
+      </div>
 
-      <label for="genre">Genre:</label>
-      <input class="form-control text-form" name="genre" type="text" placeholder="Add a genre"
-        value="{{ movie.genre }}" />
+      <div class="mb-3">
+        <label for="cast">Cast:</label>
+        <input class="form-control text-form" name="cast" type="text" placeholder="Add some actors"
+          value="{{ movie.cast }}" />
+      </div>
 
-      <label for="director">Director:</label>
-      <input class="form-control text-form" name="director" type="text" placeholder="Add a director"
-        value="{{ movie.director }}" />
+      <div class="mb-3">
+        <label for="plot">Plot:</label>
+        <textarea class="form-control text-form" name="plot" type="text" placeholder="Add some info about the plot"
+          rows="3">{{ movie.plot}}</textarea>
+      </div>
 
-      <label for="cast">Cast:</label>
-      <input class="form-control text-form" name="cast" type="text" placeholder="add some actors"
-        value="{{ movie.cast }}" />
-        
-      <label for="year">Year:</label>
-      <input class="form-control text-form" name="year" type="number" min="1900" max="2025" step="1"
-        placeholder="add a year" value="{{ movie.year }}" />
+
+      <div class="mb-3">
+        <label for="trailer">Trailer:</label>
+        <input class="form-control text-form" name="trailer" type="url" placeholder="Add an URL for a trailer"
+          value="{{ movie.trailer }}">
+      </div>
+
+      <div class="mb-3">
+        <label for="genre">Genre:</label>
+        <input class="form-control text-form" name="genre" type="text" placeholder="Add a genre"
+          value="{{ movie.genre }}" />
+      </div>
 
       <button class="btn btn-warning signin-bottom" type="submit">Update</button>
     </form>
