@@ -24,9 +24,7 @@ On this website you can share and check anytime for recommendations on books and
 
 - a group has a dashboard with information about the group and a movie section (preview)
 - a member can see a movie index page
-- a member can sort or filter movies
 - a member can see details of a movie
-- a member can rate a movie with stars
 
 ### Nice to have
 - profile: 
@@ -41,9 +39,11 @@ On this website you can share and check anytime for recommendations on books and
   - timeline/history
   - have several sections (tv-shows, books, events, ...)
   - more detailed sections (movie => movie, tv-show,   documentary, …)
-  - users can choose between or create own categories for a   - group
+  - users can choose between or create own categories for a  group
+  - a member can sort or filter movies
 
 - movie-details: 
+  - a member can rate a movie with stars
   - comments
   - users can mark a movie as a favorite
 
@@ -102,7 +102,7 @@ Movie = {
     },
     plot: String,
     genre: String,
-    year: Date,
+    year: Number,
     director: String,
     cast: String,
     trailer: String,
@@ -132,40 +132,38 @@ Movie = {
 
 ## Route planning:
 
--  get ‘/’ => landing page with new signin form
+### public routes
 
-// sessions
-
--  get ‘/signup’ => new signup form 
--  post ‘/signup’ => create account
--  get ‘/signin’ => new signin form
--  post ‘/signin’ => create session
+#### session handling
+-  get ‘/’ => landing page with signin form 
+-  post ‘/signin’ => signin in and create session
+-  get ‘/signup’ => get signup form
+-  post ‘/signup’ => create user and session
 -  post ‘/logout’ => delete session
 
+### user private routes
 
-// User profile
-// private: only user has access
+#### view and edit user profile
 
-- get ‘/profiles/:userId’ => show profile and groups 
-- get ‘/profiles/:userId/edit’ => edit user information - form 
-- patch ‘/profiles/:userId/edit’ => update user - information
+- get ‘/profile/’ => show profile and groups 
+- get ‘/profile/edit’ => edit user information - form 
+- patch ‘/profile/update’ => update user - information
 
-// Manage groups
+#### create a group
 
-- get ‘/profiles/:userId/groups/new’ => new group form
-- post ‘/profiles/:userId/groups/create’ => create group
-- get ‘/profiles/:userId/groups/:groupId/edit’ => edit - group form
-- post ‘/profiles/:userId/groups/:groupId/update’ => - update group
+- get ‘/groups/new’ => new group form
+- post ‘/groups/:groupId/create’ => create group and add members
 
-// Manage memberships
-// private: only group has access 
+
+### user and group private routes
+
+#### view and edit a group
 
 - get ‘/group/:groupId’ => show group information and - sections
-- post ‘groups/:groupId/members/:userId/add’ => add User - to group
-
+- get ‘/groups/:groupId/edit’ => edit group form and add/remove members
+- post ‘/groups/:groupId/update’ => update group
  
-// Manage groups content
-// private: only group has access 
+#### create and manage movies
 
 - get ‘/group/:groupId/movies’ => index all movies of a - group
 - get ‘/group/:groupId/movies/:movieId’ => show movie - details
@@ -174,11 +172,11 @@ Movie = {
 - get ‘/group/:groupId/movies/:movieId/edit’ => edit - movie form
 - patch ‘/group/:groupId/movies/:movieId/update’ => - update movie
 
-## links
+## Links
 
-- [Trello](https://trello.com/b/dytYvKCT/vider)
+- [Kanban Board](https://trello.com/b/dytYvKCT/vider)
 
-- [Github](https://github.com/lemade3k-ironhack/vider/)
+- [Git Repository](https://github.com/lemade3k-ironhack/vider/)
 
-- [Wireframe](https://whimsical.com/landing-page-DbwFU6dBziLKxGmLH5nNw3)
+- [Wireframes](https://whimsical.com/landing-page-DbwFU6dBziLKxGmLH5nNw3)
 
