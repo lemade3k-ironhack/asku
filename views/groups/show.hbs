@@ -52,7 +52,7 @@
           <div class="card movie-card p-2 mr-3 mb-5">
             <img class="card-img-top" src="{{this.image}}" alt="{{this.title}}-preview-image">
             <div class="card-body">
-              <p class="card-text">{{this.title}} ({{this.year}})</p>
+              <p class="card-text">{{this.title}} {{#if this.year}} ({{this.year}}) {{/if}}</p>
             </div>
           </div>
         </a>

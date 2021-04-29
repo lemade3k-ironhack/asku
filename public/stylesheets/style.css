@@ -72,6 +72,13 @@ h1 {
   height: 800px;
 }
 
+.text-signup{
+  text-align: center;
+  justify-content: center;
+  width: 400px;
+  margin-top: 25px;
+}
+
 /* signin */
 
 #signin-header{
