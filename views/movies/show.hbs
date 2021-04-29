@@ -13,29 +13,27 @@
   </div>
 </div>
 
-<div class="movie-container">
-  <div>
-    <h2 class="movie-show-title">{{movie.title}} {{#if movie.year}} ({{movie.year}}) {{/if}} </h2>
-  </div>
-  <div>
-    <a class="btn btn-secondary edit-btn-movie btn-sm" href="/groups/{{groupId}}/movies/{{movie._id}}/edit">edit</a>
-  </div>
-</div>
+<main id="movies-show">
+  <section class="movie-container">
+    <div>
+      <h2 class="movie-show-title">{{movie.title}} {{#if movie.year}} ({{movie.year}}) {{/if}} </h2>
+    </div>
+    <div>
+      <a class="btn btn-secondary edit-btn-movie btn-sm" href="/groups/{{groupId}}/movies/{{movie._id}}/edit">edit</a>
+    </div>
+  </section>
 
-
-<section class="movies-show">
-  <!-- ToDo: Refactor. Use uploaded videos because of Cross-Origin Read Blocking (CORB) -->
-  <video width="500" controls>
-    <source src="{{movie.trailer}}" type="video/mp4">
-  </video>
-
-  <div class="movie-container">
-    <p class="lead movie-plot"> {{movie.plot}} </p>
-  </div>
+  <section class="trailer my-5">
+    <!-- ToDo: Refactor. Use uploaded videos because of Cross-Origin Read Blocking (CORB) -->
+    <video controls>
+      <source src="{{movie.trailer}}" type="video/mp4">
+    </video>
+  </section>
 
   <section>
-    <p class="lead">Director: {{movie.director}}</p>
+    <p class="lead"> {{movie.plot}} </p>
+    <p class="lead mt-5">Director: {{movie.director}}</p>
     <p class="lead">Cast: {{movie.cast}}</p>
     <p class="lead"> Genre: {{movie.genre}}</p>
   </section>
-</section>
+</main>
