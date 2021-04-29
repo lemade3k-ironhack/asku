@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-3 offset-md-2">
           <div class="user-info">
-            <img src="{{user.avatar}}" class="user-avatar" alt="user-avatar">
+            <img src="{{user.avatar}}" class="user-avatar mb-3" alt="user-avatar">
             <h3 class="accordion accordion-flush">{{user.username}}</h3>
             <p class="accordion accordion-flush">{{user.quote}}</p>
             <a href="/profile/edit" class="btn btn-secondary">Edit Profile</a>
@@ -37,7 +37,7 @@
       </div>
       {{#if user.groups}}
       <div class="row">
-        <div class="col-md-10 offset-md-1">
+        <div class="col-md-10 offset-md-2">
           <div class="my-groups">
             {{#each user.groups}}
             <a href="/groups/{{this._id}}">

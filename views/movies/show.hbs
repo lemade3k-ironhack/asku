@@ -1,3 +1,18 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <nav class="mt-3 ml-3" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/profile">Home</a></li>
+          <li class="breadcrumb-item"><a href="/groups/{{groupId}}">Group"</a></li>
+          <li class="breadcrumb-item"><a href="/groups/{{groupId}}/movies">Movies</a></li>
+          <li class="breadcrumb-item">Movie "{{movie.title}}"</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+
 <div class="movie-container">
   <div>
     <h1 class="movie-show-title">{{movie.title}} ({{movie.year}})</h1>
@@ -12,7 +27,7 @@
   <video width="500" controls>
     <source src="{{movie.trailer}}" type="video/mp4">
   </video>
-  
+
   <div class="movie-container">
     <p class="lead movie-plot"> {{movie.plot}} </p>
   </div>
