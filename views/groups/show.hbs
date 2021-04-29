@@ -1,5 +1,4 @@
 <main id='group'>
-  <!-- <section> -->
   <div class"container">
     <div class="row">
       <div class="col-md-12">
@@ -23,6 +22,7 @@
       <div class="col-md-2">
       </div>
       <div class="col-md-5">
+        {{#if members}}
         <p class="text-members">Members:</p>
         {{#each members}}
         <div class="member-container">
@@ -32,6 +32,7 @@
           <p class="members-name">{{this.username}}</p>
         </div>
         {{/each}}
+        {{/if}}
       </div>
     </div>
 
@@ -45,7 +46,6 @@
 
     <div class="row">
       <div class="col-md-10 offset-md-2 index-movies-list ">
-
         {{#each movies}}
         <a class="movie-title" href="/groups/{{../group._id}}/movies/{{this._id}}">
           <img class="movie-image" src="{{this.image}}" alt="{{this.title}}-preview-image">
@@ -55,5 +55,4 @@
       </div>
     </div>
   </div>
-  <!--</section>-->
 </main>

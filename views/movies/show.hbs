@@ -15,12 +15,13 @@
 
 <div class="movie-container">
   <div>
-    <h1 class="movie-show-title">{{movie.title}} ({{movie.year}})</h1>
+    <h2 class="movie-show-title">{{movie.title}} {{#if movie.year}} ({{movie.year}}) {{/if}} </h2>
   </div>
   <div>
-    <a class="btn btn-secondary edit-btn-movie" href="/groups/{{groupId}}/movies/{{movie._id}}/edit">Edit movie</a>
+    <a class="btn btn-secondary edit-btn-movie btn-sm" href="/groups/{{groupId}}/movies/{{movie._id}}/edit">edit</a>
   </div>
 </div>
+
 
 <section class="movies-show">
   <!-- ToDo: Refactor. Use uploaded videos because of Cross-Origin Read Blocking (CORB) -->
