@@ -2,7 +2,7 @@
   <section class>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3 offset-md-2">
+        <div class="col-md-5 offset-md-2">
           <div class="user-info">
             <img src="{{user.avatar}}" class="user-avatar mb-3" alt="user-avatar">
             <h3 class="accordion accordion-flush">{{user.username}}</h3>
@@ -11,18 +11,22 @@
             <a href="/groups/new" class="btn btn-warning">Create a group</a>
           </div>
         </div>
-        <div class="col-md-5 offset-md-2">
-          <div class="friends-container">
-            {{#if friends}}
-            <p class="friend-name">My Friends:</p>
-              <div class="friends-container-margin">
-                {{#each friends}}
+        <div class="col-md-3">
+          {{#if friends}}
+          <div class="mt-5">
+            <h4 class="mb-3">My Friends:</h4>
+            <div class="d-flex">
+              {{#each friends}}
+              <div class="d-flex flex-column mr-3">
                 <img src="{{this.avatar}}" class="friends-image" alt="friend-image">
-                <p class="friends-name">{{this.username}}</p>
-                {{/each}}
+                <p class="friends-name d-flex justify-content-center">{{this.username}}</p>
               </div>
+              {{/each}}
+            </div>
             {{/if}}
           </div>
+        </div>
+        <div class="col-md-2">
         </div>
       </div>
       <div class="row">
@@ -40,8 +44,9 @@
         <div class="col-md-10 offset-md-2">
           <div class="my-groups">
             {{#each user.groups}}
-            <a href="/groups/{{this._id}}">
+            <a class="d-flex flex-column mr-3" href="/groups/{{this._id}}">
               <img src="{{this.image}}" class="my-groups-image" alt="group-image">
+                <p class="friends-name d-flex justify-content-center">{{this.groupName}}</p>
             </a>
             {{/each}}
           </div>
