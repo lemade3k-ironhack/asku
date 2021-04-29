@@ -8,9 +8,9 @@ const movieSchema = new Schema(
     },
     plot: String,
     genre: String,
-    year: Date,
+    year: String,
     director: String,
-    cast: [String],
+    cast: String,
     trailer: String,
     rating: Schema.Types.Decimal128,
     image: {

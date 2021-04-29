@@ -8,25 +8,36 @@
 
     <form action="/groups/{{groupId}}/movies/create" method="POST" enctype="multipart/form-data">
       <label for="title">Title:</label>
-      <input class="form-control text-form" name="title" type="text" placeholder="add movies title" value="{{ movie.title }}" />
-      
+      <input class="form-control text-form" name="title" type="text" placeholder="add movies title"
+        value="{{ movie.title }}" />
+
       <label for="image">Preview Image:</label>
-      <input class="form-control form-control-sm text-form" name="image" type="file" accept="image/png image/jpg image/jpeg">
+      <input class="form-control form-control-sm text-form" name="image" type="file"
+        accept="image/png image/jpg image/jpeg">
 
       <label for="trailer">Trailer:</label>
-      <input class="form-control text-form" name="trailer" type="url"  placeholder="add an URL for a trailer" value="{{ movie.trailer }}">
+      <input class="form-control text-form" name="trailer" type="url" placeholder="add an URL for a trailer"
+        value="{{ movie.trailer }}">
 
       <label for="plot">Plot:</label>
-      <textarea class="form-control text-form" name="plot" type="text" placeholder="add some info about the plot" rows="3" value="{{ movie.plot}}"></textarea>
+      <textarea class="form-control text-form" name="plot" type="text" placeholder="add some info about the plot"
+        rows="3" value="{{ movie.plot}}"></textarea>
 
       <label for="genre">Genre:</label>
-      <input class="form-control text-form"name="genre" type="text" placeholder="add a genre" value="{{ movie.genre }}" />
+      <input class="form-control text-form" name="genre" type="text" placeholder="add a genre"
+        value="{{ movie.genre }}" />
 
       <label for="director">Director:</label>
-      <input class="form-control text-form" name="director" type="text" placeholder="add a director" value="{{ movie.director }}" />
+      <input class="form-control text-form" name="director" type="text" placeholder="add a director"
+        value="{{ movie.director }}" />
+
+      <label for="cast">Cast:</label>
+      <input class="form-control text-form" name="cast" type="text" placeholder="add some actors"
+        value="{{ movie.cast }}" />
 
       <label for="year">Year:</label>
-      <input class="form-control text-form"name="year" type="text" placeholder="add a year" value="{{ movie.year }}" />
+      <input class="form-control text-form" name="year" type="number" min="1900" max="2025" step="1"
+        placeholder="add a year" value="{{ movie.year }}" />
 
       <button class="btn btn-warning signin-bottom" type="submit">Create</button>
     </form>
