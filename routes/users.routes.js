@@ -18,7 +18,7 @@ router.post("/signin", validateSignin, (req, res, next) => {
         res.render("users/signin.hbs", {
           username, password,
           msg:
-            "Oh no, something went wrong! Please check again if your username or password are correct!",
+            "Please check again if your username or password are correct!",
         });
       } else {
         bcrypt.compare(password, user.password).then((isMatching) => {
