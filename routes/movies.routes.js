@@ -6,19 +6,6 @@ const { authorize, authMember, authGroup } = require("../middlewares/authorizati
 const validate = require("../middlewares/validations/movies");
 const uploader = require("../middlewares/cloudinary.config");
 
-/* GET groups/:groupId/movies */
-router.get("/groups/:groupId/movies", authorize, authMember, (req, res, next) => {
-    const groupId = req.params.groupId;
-
-    Group.findById(groupId)
-      .populate("movies")
-      .then((group) =>
-        res.render("movies/index.hbs", { group, movies: group.movies })
-      )
-      .catch((err) => next(err));
-  }
-);
-
 /* GET groups/:groupId/movies/new */
 router.get("/groups/:groupId/movies/new", authorize, authMember, (req, res) => {
   res.render("movies/new.hbs", { groupId: req.params.groupId });
@@ -41,7 +28,7 @@ router.post(
       .then((movie) => {
         Group.findByIdAndUpdate(groupId, {
           $push: { movies: movie._id },
-        }).then(() => res.redirect(`/groups/${groupId}/movies`));
+        }).then(() => res.redirect(`/groups/${groupId}`));
       })
       .catch((err) => next(err));
   }

@@ -80,16 +80,14 @@ h1 {
   align-items: center;
 }
 
-.signin-name {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.signin-form {
+  width: 350px;
 }
 
 .signin-bottom {
   margin-top: 15px;
   font-size: 16px;
-  align-content: center;
+  text-align: center;
 }
 
 /***** PROFILES ******/
@@ -201,14 +199,21 @@ h1 {
 
 /* index movies */
 
-.index-movies-list {
-  display:flex;
-  flex-flow:row wrap;
+.movie-card {
+  height: 330px;
+  width: 220px;
+  background-color: #1a1919;
 }
 
-.index-movie-title{
-  margin-top: 50px;
-  align-self: center;
+.movie-card img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  margin: auto;
+}
+
+.movie-card p {
+  color: #ffc107;
 }
 
 /* MOVIE - video page */
