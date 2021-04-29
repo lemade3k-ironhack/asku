@@ -22,8 +22,7 @@ On this website you can share and check anytime for recommendations on books and
 - a member can create a movie 
 - a member can edit a movie
 
-- a group has a dashboard with information about the group and a movie section (preview)
-- a member can see a movie index page
+- a group has a dashboard with information about the group and a movie section
 - a member can see details of a movie
 
 ### Nice to have
@@ -37,17 +36,16 @@ On this website you can share and check anytime for recommendations on books and
 
 - group: 
   - timeline/history
-  - have several sections (tv-shows, books, events, ...)
+  - have several sections (tv-shows, books, events, ...) with a preview on the groups page
   - more detailed sections (movie => movie, tv-show,   documentary, …)
   - users can choose between or create own categories for a  group
   - a member can sort or filter movies
 
-- movie-details: 
+- movie: 
   - a member can rate a movie with stars
   - comments
   - users can mark a movie as a favorite
-
-- create movie:
+  - a member can see a movie index page
   - import movie informations from external api’s
 
 - memberships:

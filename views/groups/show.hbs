@@ -16,7 +16,7 @@
         <img class="group-image mb-3" src="{{group.image}}" alt="group-image">
         <h3 class="group-title">{{group.groupName}}</h3>
         <p class="group-title">{{group.description}}</p>
-        <a href="/groups/{{group._id}}/edit" class="btn btn-secondary">Edit Group</a>
+        <a href="/groups/{{group._id}}/edit" class="btn btn-secondary">Edit your Group</a>
         <a href="/groups/{{group._id}}/movies/new" class="btn btn-warning new-movies-link">
           Add new movie</a>
       </div>
@@ -24,7 +24,7 @@
       <div class="col-md-3">
         {{#if members}}
         <div>
-          <h4 class="mb-3">Members:</h4>
+          <h4 class="mb-3">Members</h4>
           <div class="d-flex">
             {{#each members}}
             <div class="d-flex flex-column mr-3">
@@ -41,22 +41,24 @@
     </div>
 
     <div class="row mt-5">
-      <div class="col-md-10 offset-md-2 index-movies-list ">
+      <div class="col-md-10 offset-md-2 ">
+        <h4 class="mb-3"> Movies </h4>
+      </div>
+    </div>
+    <div class="row mb-5">
+      <div class="col-md-8 offset-md-2 d-flex flex-wrap">
         {{#each movies}}
-        <a class="movie-title" href="/groups/{{../group._id}}/movies/{{this._id}}">
-          <img class="movie-image" src="{{this.image}}" alt="{{this.title}}-preview-image">
-          <p class="text-break">{{this.title}} ({{this.year}})</p>
+        <a href="/groups/{{../group._id}}/movies/{{this._id}}">
+          <div class="card movie-card p-2 mr-3 mb-5">
+            <img class="card-img-top" src="{{this.image}}" alt="{{this.title}}-preview-image">
+            <div class="card-body">
+              <p class="card-text">{{this.title}} ({{this.year}})</p>
+            </div>
+          </div>
         </a>
         {{/each}}
       </div>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-md-10 offset-md-2">
-        {{#if movies}}
-        <a href="/groups/{{group._id}}/movies/" class="btn btn-sm btn-warning">Show all movies</a>
-        {{/if}}
-      </div>
+      <div class="col-md-2"></div>
     </div>
   </div>
 </main>
