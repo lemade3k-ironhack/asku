@@ -10,41 +10,37 @@
         </nav>
       </div>
     </div>
+
     <div class="row">
-      <div class="col-md-3 offset-md-2">
-        <img class="movies-avatar mb-3" src="{{group.image}}" alt="group-image">
+      <div class="col-md-5 offset-md-2">
+        <img class="group-image mb-3" src="{{group.image}}" alt="group-image">
         <h3 class="group-title">{{group.groupName}}</h3>
         <p class="group-title">{{group.description}}</p>
         <a href="/groups/{{group._id}}/edit" class="btn btn-secondary">Edit Group</a>
         <a href="/groups/{{group._id}}/movies/new" class="btn btn-warning new-movies-link">
           Add new movie</a>
       </div>
-      <div class="col-md-2">
-      </div>
-      <div class="col-md-5">
+
+      <div class="col-md-3">
         {{#if members}}
-        <p class="text-members">Members:</p>
-        {{#each members}}
-        <div class="member-container">
-          <div class="members-image">
-            <img src="{{this.avatar}}" class="members-image" alt="{{this.username}}-avatar">
+        <div>
+          <h4 class="mb-3">Members:</h4>
+          <div class="d-flex">
+            {{#each members}}
+            <div class="d-flex flex-column mr-3">
+              <img src="{{this.avatar}}" class="friends-image" alt="friend-image">
+              <p class="friends-name d-flex justify-content-center">{{this.username}}</p>
+            </div>
+            {{/each}}
           </div>
-          <p class="members-name">{{this.username}}</p>
         </div>
-        {{/each}}
         {{/if}}
+      </div>
+      <div class="col-md-2">
       </div>
     </div>
 
     <div class="row mt-5">
-      <div class="col-md-10 offset-md-2">
-        {{#if movies}}
-        <a href="/groups/{{group._id}}/movies/" class="btn btn-sm btn-warning">Show all movies</a>
-        {{/if}}
-      </div>
-    </div>
-
-    <div class="row">
       <div class="col-md-10 offset-md-2 index-movies-list ">
         {{#each movies}}
         <a class="movie-title" href="/groups/{{../group._id}}/movies/{{this._id}}">
@@ -52,6 +48,14 @@
           <p class="text-break">{{this.title}} ({{this.year}})</p>
         </a>
         {{/each}}
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-10 offset-md-2">
+        {{#if movies}}
+        <a href="/groups/{{group._id}}/movies/" class="btn btn-sm btn-warning">Show all movies</a>
+        {{/if}}
       </div>
     </div>
   </div>
