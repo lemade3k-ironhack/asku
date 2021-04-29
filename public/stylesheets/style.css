@@ -80,16 +80,14 @@ h1 {
   align-items: center;
 }
 
-.signin-name {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.signin-form {
+  width: 350px;
 }
 
 .signin-bottom {
   margin-top: 15px;
   font-size: 16px;
-  align-content: center;
+  text-align: center;
 }
 
 /***** PROFILES ******/
