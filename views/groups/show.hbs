@@ -25,7 +25,7 @@
         {{#if members}}
         <div>
           <h4 class="mb-3">Members</h4>
-          <div class="d-flex">
+          <div class="d-flex felx-wrap">
             {{#each members}}
             <div class="d-flex flex-column mr-3">
               <img src="{{this.avatar}}" class="friends-image" alt="friend-image">
@@ -42,11 +42,22 @@
 
     <div class="row mt-5">
       <div class="col-md-10 offset-md-2 ">
+        {{#if movies}}
         <h4 class="mb-3"> Movies </h4>
+        {{/if}}
       </div>
     </div>
     <div class="row mb-5">
       <div class="col-md-8 offset-md-2 d-flex flex-wrap">
+        {{#unless movies}}
+        <div class="w-100 mt-5 d-flex justify-content-center">
+          <div class="card empty-page">
+            <div class="card-body lead">
+              Looks like a lot of empty space here. Add a movie to your group
+            </div>
+          </div>
+        </div>
+        {{else}}
         {{#each movies}}
         <a href="/groups/{{../group._id}}/movies/{{this._id}}">
           <div class="card movie-card p-2 mr-3 mb-5">
@@ -57,6 +68,7 @@
           </div>
         </a>
         {{/each}}
+        {{/unless}}
       </div>
       <div class="col-md-2"></div>
     </div>
