@@ -1,10 +1,14 @@
-<main id='newMovie'>
+<main class='formPage'>
   <section>
-    <h2 class="new-movie-title">Update movie</h2>
-    <img class="edit-movies-avatar" src="{{movie.image}}" alt="movie-preview-image">
+    <h1 class="mt-5 d-flex justify-content-center">Edit movie</h1>
+    <div class="d-flex justify-content-center">
+      <img src="{{ movie.image }}" class="form-image" alt="movie-preview-image">
+    </div>
+  </section>
 
+  <section class="mt-5">
     {{#if msg}}
-    <div>{{msg}}</div>
+    <div class="alert alert-warning" role="alert">{{ msg }}</div>
     {{/if}}
 
     <form action="/groups/{{groupId}}/movies/{{movie._id}}/update" method="POST" enctype="multipart/form-data">

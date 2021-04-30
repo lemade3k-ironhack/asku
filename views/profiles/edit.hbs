@@ -1,38 +1,47 @@
-<main id='edit-profile'>
-  <section class>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-5 offset-md-2">
-          <div class="user-info">
-            <img src="{{ avatar }}" class="user-avatar" alt="user-avatar">
-            <h3>Edit your profile</h3>
-            {{#if msg}}
-            <div>{{ msg }}</div>
-            {{/if}}
-            <form action="/profile/update" method="POST" enctype="multipart/form-data">
-              <!-- send old image as hidden field due to rerendering -->
-              <input name="oldImg" type="hidden" value="{{ avatar }}">
+<main class='formPage'>
+  <section>
+    <h1 class="mt-5 d-flex justify-content-center">Edit your profile</h1>
+    <div class="d-flex justify-content-center">
+      <img src="{{ avatar }}" class="form-image" alt="user-avatar">
+    </div>
+  </section>
 
-              <label for="image">Add a Profile Image:</label>
-              <input name="avatar" class="form-label" type="file" accept="image/png image/jpg image/jpeg">
-              <br>
-              <label for="username">Username:</label>
-              <input name="username" class="form-control form-control-lg" type="text" placeholder="Edit username"
-                value="{{ username }}" />
+  <section class="mt-5">
+    {{#if msg}}
+    <div class="alert alert-warning" role="alert">{{ msg }}</div>
+    {{/if}}
 
-              <label for="quote">Some words about you:</label>
-              <textarea name="quote" class="form-control" rows="5" type="text"
-                placeholder="Edit quote">{{ quote }}</textarea>
+    <form action="/profile/update" method="POST" enctype="multipart/form-data">
+      <!-- send old image as hidden field due to rerendering -->
+      <input name="oldImg" type="hidden" value="{{ avatar }}">
 
-              <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-secondary edit-profile-btn">Update Profile</button>
-                <a class="btn btn-outline-warning edit-profile-btn" href="/profile">Cancel</a>
-              </div>
-            </form>
+      <div class="mb-3">
+        <div class="input-group">
+          <div class="custom-file">
+            <input name="avatar" type="file" class="custom-file-input" id="inputGroupFile01"
+              aria-describedby="inputGroupFileAddon01" accept="image/png image/jpg image/jpeg">
+            <label class="custom-file-label" for="inputGroupFile01">Choose a profile image</label>
           </div>
         </div>
-        <div class="col-md-5"></div>
       </div>
-    </div>
+
+      <div class="mb-3">
+        <label for="username">Username:</label>
+        <input name="username" class="form-control form-control-lg" type="text" placeholder="Edit username"
+          value="{{ username }}" />
+      </div>
+
+      <div class="mb-3">
+        <label for="quote">Some words about you:</label>
+        <textarea name="quote" class="form-control" rows="5" type="text" placeholder="Edit quote">{{ quote }}</textarea>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-secondary edit-profile-btn">Update Profile</button>
+          <a class="btn btn-outline-warning edit-profile-btn" href="/profile">Cancel</a>
+        </div>
+      </div>
+    </form>
   </section>
 </main>

@@ -7,12 +7,12 @@
 
   <div class="text-signup">
     <h4>Welcome to Vider!</h3>
-      <h5>The way to share cultural experiences with your friends.</h2>
+      <h5>The way to share good experiences with your friends.</h2>
   </div>
   <section class="mt-3">
     <h3 class="d-flex justify-content-center">Start videring now! </h3>
     {{#if msg}}
-    <div>{{msg}}</div>
+    <div  class="alert alert-warning" role="alert">{{ msg }}</div>
     {{/if}}
 
     <form class="mt-4 signin-form" action="/signup" method="POST">

@@ -180,13 +180,6 @@ h1 {
 
 /* new movie page */
 
-#newMovie {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 16px;
-}
-
 .new-movie-title{
   max-width: ;
   text-align: center;
@@ -285,13 +278,6 @@ h1 {
 
 /* new group */
 
-#newGroup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 16px;
-}
-
 .text-form{
   text-align: left;
   margin-bottom: 5px;
@@ -324,27 +310,19 @@ h1 {
 
 /* edit group */
 
-#editGroup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.formPage {
+  width: 700px;
+  margin: 0 auto;
   font-size: 16px;
 }
 
-.edit-group-title{
-  text-align: center;
-  margin-top: 30px;
-  padding-right: 10px;
-}
-
-.edit-group-avatar{
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 70px;
+.form-image{
+  margin: 20px;
   width: 150px;
   height: 150px;
   object-fit: cover;
   border-radius: 50%;
+  text-align: center;
 }
 
 

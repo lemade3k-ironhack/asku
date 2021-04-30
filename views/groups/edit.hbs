@@ -1,10 +1,14 @@
-<main id='editGroup'>
+<main class='formPage'>
   <section>
-    <h1 class="edit-group-title">Edit your group!</h1>
-    <img class="edit-group-avatar" src="{{group.image}}" alt="group-image">
+    <h1 class="mt-5 d-flex justify-content-center">Edit your group</h1>
+    <div class="d-flex justify-content-center">
+      <img src="{{ group.image }}" class="form-image" alt="group-image">
+    </div>
+  </section>
 
+  <section class="mt-5">
     {{#if msg}}
-    <div>{{msg}}</div>
+    <div  class="alert alert-warning" role="alert">{{ msg }}</div>
     {{/if}}
 
     <form action="/groups/{{group._id}}/update" method="POST" enctype="multipart/form-data">
