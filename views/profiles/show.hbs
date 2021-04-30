@@ -24,6 +24,17 @@
               {{/each}}
             </div>
             {{/if}}
+            {{#if user.groups}}
+            {{#unless friends}}
+            <div class="w-100 mt-5 d-flex justify-content-center">
+              <div class="card empty-page">
+                <div class="card-body lead">
+                  So much space here? Add some friends to your groups!
+                </div>
+              </div>
+            </div>
+            {{/unless}}
+            {{/if}}
           </div>
         </div>
         <div class="col-md-2">
@@ -39,20 +50,28 @@
         </div>
         <div class="col-md-6"></div>
       </div>
-      {{#if user.groups}}
+      {{#unless user.groups}}
+      <div class="w-100 mt-5 d-flex justify-content-center">
+        <div class="card empty-page">
+          <div class="card-body lead">
+            Looks like a lot of empty space here. Create a group and add some friends.
+          </div>
+        </div>
+      </div>
+      {{else}}
       <div class="row">
         <div class="col-md-10 offset-md-2">
           <div class="my-groups">
             {{#each user.groups}}
             <a class="d-flex flex-column mr-3" href="/groups/{{this._id}}">
               <img src="{{this.image}}" class="my-groups-image" alt="group-image">
-                <p class="friends-name d-flex justify-content-center">{{this.groupName}}</p>
+              <p class="friends-name d-flex justify-content-center">{{this.groupName}}</p>
             </a>
             {{/each}}
           </div>
         </div>
       </div>
-      {{/if}}
+      {{/unless}}
     </div>
   </section>
 </main>
